@@ -1,0 +1,8 @@
+{
+    "counts": {
+        "Alice": 2,
+        "Charlie": 1
+    },
+    "total_passing": 3,
+    "unique_students": 2
+}
