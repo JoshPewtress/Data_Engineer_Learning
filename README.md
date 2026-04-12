@@ -387,6 +387,7 @@ Across these projects, I practiced:
 <a id="-notes-for-future-me"></a>
 <details>
 <summary>📝 Notes for Future Me</summary>
+<br>
 
 Things I want to remember:
 - `csv.DictReader()` reads rows as dictionaries, but values are still strings
