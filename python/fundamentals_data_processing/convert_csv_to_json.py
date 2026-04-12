@@ -1,6 +1,6 @@
 import csv, json
 
-FILE_NAME = "Files\\cleaned.csv"
+FILE_NAME = "data\\processed\\cleaned.csv"
 
 def read_from_csv(file_name):
     with open(file_name, "r", newline="") as file:
@@ -28,6 +28,6 @@ def write_to_json(file_name, data):
 def main():
     data = read_from_csv(FILE_NAME)
     students_list = transform_to_students(data)
-    write_to_json("Files\\output.json",students_list)
+    write_to_json("data\\processed\\output.json", students_list)
 
 main()

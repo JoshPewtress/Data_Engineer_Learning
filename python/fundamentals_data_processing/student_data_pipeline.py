@@ -1,7 +1,7 @@
 import csv
 import json
 
-FILE_NAME = "Files\\test_scores.csv"
+FILE_NAME = "data\\raw\\test_scores.csv"
 
 def read_from_csv(file_name):
     with open(file_name, "r", newline="") as file:
@@ -45,6 +45,6 @@ def main():
     student_grade = read_from_csv(FILE_NAME)
     filtered_students = filter_above_grade(student_grade, 80)
     assembled_dictionary = transform_to_dictionary(filtered_students)
-    write_to_json("Files\\summary.json", assembled_dictionary)
+    write_to_json("data\\outputs\\summary.json", assembled_dictionary)
 
 main()

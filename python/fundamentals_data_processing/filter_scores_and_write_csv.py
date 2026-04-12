@@ -1,6 +1,6 @@
 import csv
 
-FILE_NAME = "Files\\test_scores.csv"
+FILE_NAME = "data\\raw\\test_scores.csv"
 
 def read_from_csv(file_name):
     with open(file_name, "r", newline="") as file:
@@ -36,6 +36,6 @@ def save_to_csv(file_name, filtered_scores, failed_count):
 def main():
     data = read_from_csv(FILE_NAME)
     filtered_scores, failed_count = filter_by_score(data)
-    save_to_csv("Files\\cleaned.csv", filtered_scores, failed_count)
+    save_to_csv("data\\processed\\cleaned.csv", filtered_scores, failed_count)
 
 main()

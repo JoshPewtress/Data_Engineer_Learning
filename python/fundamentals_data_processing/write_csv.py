@@ -1,6 +1,6 @@
 import csv
 
-FILE_NAME = "Files\\test_scores.csv"
+FILE_NAME = "data\\raw\\test_scores.csv"
 
 def create_csv_file(file_name, data):
     try:
