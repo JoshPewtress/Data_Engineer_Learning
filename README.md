@@ -7,30 +7,12 @@
 
 ---
 
-## 🧱 Learning Block: Fundamentals – Data Processing
-
-This block focuses on core Python concepts applied to structured data workflows.
-
-It covers:
-- Iteration and conditional logic
-- Data aggregation with dictionaries
-- Reading and writing CSV files
-- Data cleaning and transformation
-- Converting structured data to JSON
-- Building a complete data pipeline
-
----
-
 ## 📚 Table of Contents
 
 - [Project Structure](#-project-structure)
-- [Learning Modules](#-learning-modules)
-- [Working with Lists, Loops, and Conditionals](#working-with-lists-loops-and-conditionals)
-- [Using Dictionaries for Counting and Aggregation](#using-dictionaries-for-counting-and-aggregation)
-- [Reading and Writing CSV Files](#reading-and-writing-csv-files)
-- [Filtering and Cleaning Data](#filtering-and-cleaning-data)
-- [Converting Cleaned Data to JSON](#converting-cleaned-data-to-json)
-- [Building a Complete Data Pipeline](#building-a-complete-data-pipeline)
+- [Learning Blocks](#-learning-blocks)
+    - [Block 1: Fundamentals — Data Processing](#block-1-fundamentals--data-processing)
+    - [Block 2: API Data Ingestion](#block-2-api-data-ingestion)
 - [Concepts Reinforced](#-concepts-reinforced)
 - [Notes for Future Me](#-notes-for-future-me)
 
@@ -45,14 +27,17 @@ It covers:
 DATA_ENGINEER_LEARNING/
 │
 ├── python/
-│   └── fundamentals_data_processing/
-│       ├── even_odd_split.py
-│       ├── count_name_occurrences.py
-│       ├── write_csv.py
-│       ├── read_csv_and_count.py
-│       ├── filter_scores_and_write_csv.py
-│       ├── convert_csv_to_json.py
-│       └── student_data_pipeline.py
+│   ├── fundamentals_data_processing/
+│   │   ├── even_odd_split.py
+│   │   ├── count_name_occurrences.py
+│   │   ├── write_csv.py
+│   │   ├── read_csv_and_count.py
+│   │   ├── filter_scores_and_write_csv.py
+│   │   ├── convert_csv_to_json.py
+│   │   └── student_data_pipeline.py
+│   │
+│   └── api_data_ingestion/
+│       └── simple_request.py
 │
 ├── data/
 │   ├── raw/
@@ -70,8 +55,24 @@ DATA_ENGINEER_LEARNING/
 
 ---
 
-<a id="-learning-modules"></a>
-## 🧠 Learning Modules
+<a id="-learning-blocks"></a>
+## 🧱 Learning Blocks
+
+<a id="block-1-fundamentals--data-processing"></a>
+<details>
+<summary><strong>Block 1: Fundamentals — Data Processing</strong></summary>
+<br>
+
+> This block focuses on core Python concepts applied to structured data workflows.
+
+> It covers:
+> - Iteration and conditional logic
+> - Data aggregation with dictionaries
+> - Reading and writing CSV files
+> - Data cleaning and transformation
+> - Converting structured data to JSON
+> - Building a complete data pipeline
+<br>
 
 <a id="working-with-lists-loops-and-conditionals"></a>
 <details>
@@ -366,6 +367,81 @@ def transform_to_dictionary(data):
     "unique_students": 2
 }
 ```
+</details>
+
+</details>
+
+<a id="block-2-api-data-ingestion"></a>
+<details>
+<summary><strong>Block 2: API Data Ingestion</strong></summary>
+<br>
+
+> This block focuses on pulling real-world data from an API, inspecting JSON responses, extracting useful fields, and preparing that data for later transformation and storage.
+
+> It builds toward a small ingestion pipeline that:
+> - requests external data
+> - structures useful values
+> - handles failed requests
+> - writes clean outputs for later processing
+
+<a id="fetching-data-from-an-api"></a>
+<details>
+<summary>🔹 Fetching Data from an API</summary>
+<br>
+
+**Script**  
+- [View API request implementation](./python/api_data_ingestion/simple_request.py)
+
+**Purpose**  
+Learn how to retrieve data from an external API, inspect the response, and extract useful fields from returned JSON data.
+
+**What I Built**  
+A script that:
+- sends a GET request to the Pokémon API
+- retrieves data for a specified Pokémon
+- checks for a successful response
+- converts the response into JSON format
+- extracts and displays selected attributes in a readable format
+
+**Key Takeaways**
+- Using `requests.get()` to call an external API
+- Checking `response.status_code` before using the response
+- Converting API responses into Python dictionaries using `.json()`
+- Accessing nested data using dictionary keys
+- Separating data retrieval logic from display logic
+
+**Quick Reference**
+```python
+import requests
+
+URL_NAME = "https://pokeapi.co/api/v2/pokemon/"
+
+def get_pokemon_info(name):
+    url = f"{URL_NAME}{name.lower()}"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(f"Invalid response: {response.status_code}")
+        return None
+
+def display_pokemon_info(pokemon):
+    print(f"Name: {pokemon['name'].capitalize()}")
+    print(f"Base Experience: {pokemon['base_experience']}")
+    print(f"Height: {pokemon['height']}")
+    print(f"Weight: {pokemon['weight']}")
+```
+
+**Example Output**
+```text
+Name: Pikachu
+Base Experience: 112
+Height: 4
+Weight: 60
+```
+</details>
+
 </details>
 
 ---
