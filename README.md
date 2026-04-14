@@ -37,7 +37,8 @@ DATA_ENGINEER_LEARNING/
 │   │   └── student_data_pipeline.py
 │   │
 │   └── api_data_ingestion/
-│       └── simple_request.py
+│       ├── simple_request.py
+│       └── get_pokemon_data.py
 │
 ├── data/
 │   ├── raw/
@@ -60,7 +61,7 @@ DATA_ENGINEER_LEARNING/
 
 <a id="block-1-fundamentals--data-processing"></a>
 <details>
-<summary><strong>Block 1: Fundamentals — Data Processing</strong></summary>
+<summary><strong>Block 1: Fundamentals — Data Processing 🟩</strong></summary>
 <br>
 
 > This block focuses on core Python concepts applied to structured data workflows.
@@ -74,9 +75,10 @@ DATA_ENGINEER_LEARNING/
 > - Building a complete data pipeline
 <br>
 
-<a id="working-with-lists-loops-and-conditionals"></a>
+---
+
 <details>
-<summary>🔹 Working with Lists, Loops, and Conditionals</summary>
+<summary><strong>🔹 Working with Lists, Loops, and Conditionals</strong></summary>
 <br>
 
 **Script**  
@@ -121,9 +123,10 @@ print(odd)    # [47, 83, 29, 5]
 ```
 </details>
 
-<a id="using-dictionaries-for-counting-and-aggregation"></a>
+---
+
 <details>
-<summary>🔹 Using Dictionaries for Counting & Aggregation</summary>
+<summary><strong>🔹 Using Dictionaries for Counting & Aggregation</strong></summary>
 <br>
 
 **Script**  
@@ -162,9 +165,10 @@ print(counts)    # {'Alice': 3, 'Bob': 2, 'Charlie': 1}
 ```
 </details>
 
-<a id="reading-and-writing-csv-files"></a>
+---
+
 <details>
-<summary>🔹 Reading and Writing CSV Files</summary>
+<summary><strong>🔹 Reading and Writing CSV Files</strong></summary>
 <br>
 
 **Script**  
@@ -209,9 +213,10 @@ with open(file_name, "r", newline="") as file:
 ```
 </details>
 
-<a id="filtering-and-cleaning-data"></a>
+---
+
 <details>
-<summary>🔹 Filtering and Cleaning Data</summary>
+<summary><strong>🔹 Filtering and Cleaning Data</strong></summary>
 <br>
 
 **Script**  
@@ -254,9 +259,10 @@ def filter_by_score(data):
 ```
 </details>
 
-<a id="converting-cleaned-data-to-json"></a>
+---
+
 <details>
-<summary>🔹 Converting Cleaned Data to JSON</summary>
+<summary><strong>🔹 Converting Cleaned Data to JSON</strong></summary>
 <br>
 
 **Script**  
@@ -313,9 +319,10 @@ def transform_to_students(data):
 ```
 </details>
 
-<a id="building-a-complete-data-pipeline"></a>
+---
+
 <details>
-<summary>🔹 Building a Complete Data Pipeline ⚡</summary>
+<summary><strong>🔹 Building a Complete Data Pipeline ⚡</strong></summary>
 <br>
 
 **Script**  
@@ -369,14 +376,16 @@ def transform_to_dictionary(data):
 ```
 </details>
 
+---
+
 </details>
 
 <a id="block-2-api-data-ingestion"></a>
 <details>
-<summary><strong>Block 2: API Data Ingestion</strong></summary>
+<summary><strong>Block 2: API Data Ingestion 🟪</strong></summary>
 <br>
 
-> This block focuses on pulling real-world data from an API, inspecting JSON responses, extracting useful fields, and preparing that data for later transformation and storage.
+> This block focuses on pulling real-world data from an API, inspecting JSON responses, extracting useful fields, and preparing that data for further transformation and storage.
 
 > It builds toward a small ingestion pipeline that:
 > - requests external data
@@ -384,9 +393,10 @@ def transform_to_dictionary(data):
 > - handles failed requests
 > - writes clean outputs for later processing
 
-<a id="fetching-data-from-an-api"></a>
+---
+
 <details>
-<summary>🔹 Fetching Data from an API</summary>
+<summary><strong>🔹 Fetching Data from an API</strong></summary>
 <br>
 
 **Script**  
@@ -442,6 +452,54 @@ Weight: 60
 ```
 </details>
 
+---
+
+<details>
+<summary><strong>🔹 Structuring API Response Data</strong></summary>
+<br>
+
+**Script**  
+- [View structured API transformation](./python/api_data_ingestion/get_pokemon_data.py)
+
+**Purpose**  
+Learn how to transform raw API JSON into a clean, reusable Python dictionary.
+
+**What I Built**  
+A script that:
+- retrieves Pokémon data from the API
+- extracts only relevant fields
+- converts raw JSON into a structured dictionary
+- separates API logic from transformation logic
+
+**Key Takeaways**  
+- Raw API responses should not be used directly, always transform them first
+- Creating a transformation layer makes data reusable
+- Functions should have a single responsibility (fetch vs transform)
+- Returning consistent data shapes is critical for scaling
+
+**Quick Reference**
+```python
+def transform_pokemon_data(pokemon):
+    return {
+        "name": pokemon["name"],
+        "base_experience": pokemon["base_experience"],
+        "height": pokemon["height"],
+        "weight": pokemon["weight"]
+    }
+```
+
+**Example Output**
+```python
+{
+    "name": "pikachu",
+    "base_experience": 112,
+    "height": 4,
+    "weight": 60
+}
+```
+
+</details>
+
 </details>
 
 ---
@@ -457,6 +515,10 @@ Across these projects, I practiced:
 - reading and writing CSV files
 - converting data to JSON
 - building simple multi-step data pipelines
+- making external API requests
+- parsing and navigating JSON responses
+- separating data retrieval from transformation logic
+- designing consistent data structures for reuse
 
 ---
 
@@ -465,10 +527,33 @@ Across these projects, I practiced:
 <summary>📝 Notes for Future Me</summary>
 <br>
 
-Things I want to remember:
-- `csv.DictReader()` reads rows as dictionaries, but values are still strings
-- use `int()` before comparing numeric CSV values
-- `.get(key, default)` is a useful pattern for counting
-- `json.dump(data, file, indent=4)` writes formatted JSON
-- clean output files are easier to reuse when record data and summary data are kept separate
+- Clean input early  
+    → Use `.strip()` and `.lower()` to ensure consistent data
+
+- Validate before using data  
+    → Always check API responses (`status_code == 200`)  
+    → Always guard against `None` before passing data forward
+
+- Transform before use  
+    → Never use raw API or CSV data directly  
+    → Shape it into a consistent structure first
+
+- Keep functions focused  
+    → One job per function (fetch, transform, display)
+
+- Be consistent with data structures  
+    → Know when you're returning `{}` vs `[]` and stick to it
+
+- Convert types explicitly  
+    → CSV values are strings — use `int()` before comparisons
+
+- Use dictionary patterns  
+    → `.get(key, default)` is the cleanest way to count
+
+- Make output readable  
+    → Use `json.dump(..., indent=4)`
+
+- Separate data concerns  
+    → Raw data, processed data, and summaries should not be mixed
+
 </details>
