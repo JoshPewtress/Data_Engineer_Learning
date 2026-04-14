@@ -1,0 +1,17 @@
+{
+    "Pikachu": {
+        "height": 4,
+        "weight": 60,
+        "base_experience": 112
+    },
+    "Charizard": {
+        "height": 17,
+        "weight": 905,
+        "base_experience": 240
+    },
+    "Bulbasaur": {
+        "height": 7,
+        "weight": 69,
+        "base_experience": 64
+    }
+}
