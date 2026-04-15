@@ -38,11 +38,13 @@ DATA_ENGINEER_LEARNING/
 │   │
 │   └── api_data_ingestion/
 │       ├── simple_request.py
-│       └── get_pokemon_data.py
+│       ├── get_pokemon_data.py
+│       └── pokemon_data_pipeline.py
 │
 ├── data/
 │   ├── raw/
-│   │   └── test_scores.csv
+│   │   ├── test_scores.csv
+│   │   └── pokemon_data.json
 │   ├── processed/
 │   │   ├── cleaned.csv
 │   │   └── output.json
@@ -335,7 +337,7 @@ Combine earlier concepts into a single workflow that reads raw CSV data, filters
 A script that:
 - reads student score data from a CSV file
 - filters out scores below a passing threshold
-- counts how many passing records each student has
+- counts how many passing records each student has earned
 - calculates total passing records
 - calculates the number of unique passing students
 - writes the final summary to a JSON file
@@ -500,6 +502,69 @@ def transform_pokemon_data(pokemon):
 
 </details>
 
+---
+
+<details>
+<summary><strong>🔹 Collecting and Saving API Data</strong></summary>
+<br>
+
+**Script**  
+- [View API ingestion pipeline](./python/api_data_ingestion/pokemon_data_pipeline.py)
+
+**Purpose**  
+Learn how to combine API requests, data transformation, and file output into a simple ingestion workflow.
+
+**What I Built**  
+A script that:
+- loops through a list of Pokémon
+- retrieves data for each one using the API
+- transforms each response into a structured format
+- aggregates the results into a structured dictionary
+- writes the final dataset to a JSON file
+
+**Key Takeaways**  
+- Looping over multiple API calls to build a dataset
+- Aggregating structured records into a single collection
+- Writing external data to disk using `json.dump()`
+- Skipping invalid responses without breaking the pipeline
+- Beginning to think in terms of ingestion pipelines
+
+**Quick Reference**
+```python
+def transform_pokemon_data(pokemon_list):
+    output = {}
+
+    for pokemon in pokemon_list:
+        pokemon_data = get_pokemon_data(pokemon)
+
+        if pokemon_data:
+            output[pokemon_data["name"].capitalize()] = {
+                "height": pokemon_data["height"],
+                "weight": pokemon_data["weight"],
+                "base_experience": pokemon_data["base_experience"]
+            }
+
+    return output
+```
+
+**Example Output**
+```python
+{
+    "Pikachu": {
+        "height": 4,
+        "weight": 60,
+        "base_experience": 112
+    },
+    "Charizard": {
+        "height": 17,
+        "weight": 905,
+        "base_experience": 240
+    }
+}
+```
+
+</details>
+
 </details>
 
 ---
@@ -519,6 +584,8 @@ Across these projects, I practiced:
 - parsing and navigating JSON responses
 - separating data retrieval from transformation logic
 - designing consistent data structures for reuse
+- aggregating multiple API responses into a dataset
+- writing external data to persistent storage
 
 ---
 
@@ -550,10 +617,13 @@ Across these projects, I practiced:
 - Use dictionary patterns  
     → `.get(key, default)` is the cleanest way to count
 
-- Make output readable  
+- Make output human-readable  
     → Use `json.dump(..., indent=4)`
 
 - Separate data concerns  
     → Raw data, processed data, and summaries should not be mixed
+
+- File paths should match project structure  
+    → Keep output in `data/raw`, `data/processed`, or `data/outputs`
 
 </details>
