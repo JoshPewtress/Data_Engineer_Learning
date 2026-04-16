@@ -39,7 +39,8 @@ DATA_ENGINEER_LEARNING/
 │   └── api_data_ingestion/
 │       ├── simple_request.py
 │       ├── get_pokemon_data.py
-│       └── pokemon_data_pipeline.py
+│       ├── pokemon_data_pipeline.py
+│       └── filter_pokemon_data.py
 │
 ├── data/
 │   ├── raw/
@@ -519,7 +520,7 @@ A script that:
 - loops through a list of Pokémon
 - retrieves data for each one using the API
 - transforms each response into a structured format
-- aggregates the results into a structured dictionary
+- aggregates the results into a structured dataset
 - writes the final dataset to a JSON file
 
 **Key Takeaways**  
@@ -565,6 +566,74 @@ def transform_pokemon_data(pokemon_list):
 
 </details>
 
+---
+
+<details>
+<summary><strong>🔹 Filtering and Summarizing API Data</strong></summary>
+<br>
+
+**Script**  
+- [View filtering implementation](./python/api_data_ingestion/filter_pokemon_data.py)
+
+**Purpose**  
+Learn how to filter a dataset based on a condition and produce a structured summary of the results.
+
+**What I Built**  
+A script that:
+- reads Pokémon data from a JSON file
+- filters Pokémon based on base experience
+- extracts relevant fields into a clean structure
+- builds a list of filtered records
+- returns both the filtered dataset and a count of matching entries
+
+**Key Takeaways**  
+- Filtering structured data using conditional logic
+- Iterating through nested dictionaries (`key`, `value`)
+- Converting dictionary-based data into a list of records
+- Building summary outputs that include both data and metadata
+- Reusing earlier patterns (filter → transform → summarize) on real datasets
+
+**Quick Reference**
+```python
+def filter_by_base_experience(pokemon, min_exp):
+    filtered = []
+
+    for key, value in pokemon.items():
+        if value["base_experience"] > min_exp:
+            height = value["height"]
+            weight = value["weight"]
+            base_experience = value["base_experience"]
+
+            filtered.append({
+                "name": key,
+                "height": height,
+                "weight": weight,
+                "base_experience": base_experience
+            })
+
+    return {
+        "high_experience": filtered,
+        "count": len(filtered)
+    }
+```
+
+**Example Output**
+```python
+{
+    "high_experience": [
+        {
+            "name": "Charizard",
+            "height": 17,
+            "weight": 905,
+            "base_experience": 240
+        }
+    ],
+    "count": 1
+}
+```
+
+</details>
+
 </details>
 
 ---
@@ -586,6 +655,8 @@ Across these projects, I practiced:
 - designing consistent data structures for reuse
 - aggregating multiple API responses into a dataset
 - writing external data to persistent storage
+- filtering datasets based on business logic conditions
+- transforming dictionary-based data into list-based records
 
 ---
 
