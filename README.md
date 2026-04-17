@@ -40,7 +40,8 @@ DATA_ENGINEER_LEARNING/
 │       ├── simple_request.py
 │       ├── get_pokemon_data.py
 │       ├── pokemon_data_pipeline.py
-│       └── filter_pokemon_data.py
+│       ├── filter_pokemon_data.py
+│       └── pokemon_data_error_handling.py
 │
 ├── data/
 │   ├── raw/
@@ -634,6 +635,64 @@ def filter_by_base_experience(pokemon, min_exp):
 
 </details>
 
+---
+
+<details>
+<summary><strong>🔹 Handling Invalid Data and API Errors</strong></summary>
+<br>
+
+**Script**  
+- [View error handling implementation](./python/api_data_ingestion/pokemon_data_error_handling.py)
+
+**Purpose**  
+Learn how to make API-driven workflows resilient by handling invalid input, failed requests, and unexpected data without crashing the program.
+
+**What I Built**  
+A script that:
+- normalizes user input before making API requests
+- skips blank or invalid Pokémon inputs
+- handles failed API responses gracefully
+- continues processing valid records without interruption
+- extracts selected fields into a structured format
+
+**Key Takeaways**
+- Always normalize input early (`.strip()` and `.lower()`)
+- Never assume external data is valid
+- Use conditional checks to prevent runtime errors
+- Skip invalid records instead of stopping the program
+- Keep validation logic close to where data is used
+
+**Quick Reference**
+```python
+def get_pokemon_data(name):
+    name = name.strip().lower()
+
+    if name:
+        url = f"{URL_NAME}pokemon/{name}"
+        response = requests.get(url)
+
+        if response.status_code == 200:
+            return response.json()
+        else:
+            print(f"Skipping '{name}', no record was found.")
+            return None
+    else:
+        print(f"Skipping '{name}', blank entry.")
+        return None
+```
+
+**Example Output**
+```python
+Skipping 'invalidmon', no record was found.
+Skipping '', blank entry.
+[
+    {'id': 25, 'name': 'pikachu', 'weight': 60},
+    {'id': 6, 'name': 'charizard', 'weight': 905}
+]
+```
+
+</details>
+
 </details>
 
 ---
@@ -657,6 +716,8 @@ Across these projects, I practiced:
 - writing external data to persistent storage
 - filtering datasets based on business logic conditions
 - transforming dictionary-based data into list-based records
+- handling invalid input and edge cases
+- building resilient data ingestion workflows
 
 ---
 
@@ -677,7 +738,7 @@ Across these projects, I practiced:
     → Shape it into a consistent structure first
 
 - Keep functions focused  
-    → One job per function (fetch, transform, display)
+    → One job per function (fetch, validate, transform, display, save)
 
 - Be consistent with data structures  
     → Know when you're returning `{}` vs `[]` and stick to it
