@@ -41,7 +41,8 @@ DATA_ENGINEER_LEARNING/
 │       ├── get_pokemon_data.py
 │       ├── pokemon_data_pipeline.py
 │       ├── filter_pokemon_data.py
-│       └── pokemon_data_error_handling.py
+│       ├── pokemon_data_error_handling.py
+│       └── pokemon_etl_pipeline.py
 │
 ├── data/
 │   ├── raw/
@@ -51,7 +52,8 @@ DATA_ENGINEER_LEARNING/
 │   │   ├── cleaned.csv
 │   │   └── output.json
 │   └── outputs/
-│       └── summary.json
+│       ├── summary.json
+│       └── pokemon_summary.json
 │
 ├── .gitignore
 └── README.md
@@ -391,7 +393,7 @@ def transform_to_dictionary(data):
 
 > This block focuses on pulling real-world data from an API, inspecting JSON responses, extracting useful fields, and preparing that data for further transformation and storage.
 
-> It builds toward a small ingestion pipeline that:
+> It builds toward a complete data ingestion pipeline that:
 > - requests external data
 > - structures useful values
 > - handles failed requests
@@ -693,6 +695,77 @@ Skipping '', blank entry.
 
 </details>
 
+---
+
+<details>
+<summary><strong>🔹 Building a Complete API Data Pipeline ⚡</strong></summary>
+<br>
+
+**Script**  
+- [View full ETL pipeline implementation](./python/api_data_ingestion/pokemon_etl_pipeline.py)
+
+**Purpose**  
+Combine API ingestion, validation, transformation, filtering, and file output into a single cohesive workflow.
+
+**What I Built**  
+A complete pipeline that:
+- accepts user input for Pokémon names
+- normalizes and validates input
+- retrieves data from the Pokémon API
+- skips invalid or blank entries
+- transforms API responses into structured records
+- saves the raw dataset to a JSON file
+- filters Pokémon based on base experience
+- builds a structured summary of results
+- writes the final summary to a separate JSON file
+
+**Key Takeaways**
+- Combining multiple functions into a cohesive data workflow
+- Separating raw data from processed outputs
+- Reusing helper functions to maintain DRY code
+- Designing consistent data structures across pipeline stages
+- Thinking in terms of Extract → Transform → Load (ETL)
+
+**Quick Reference**
+```python
+def main():
+    pokemon_input = get_user_input()
+
+    pokemon_data = collect_pokemon_data(pokemon_input)
+
+    if pokemon_data:
+        write_json_file(RAW_FILE_PATH, pokemon_data)
+        good_data, bad_data = filter_by_base_experience(pokemon_data, 100)
+        pokemon_summary = build_pokemon_summary(good_data, bad_data)
+        write_json_file(SUMMARY_FILE_PATH, pokemon_summary)
+```
+
+**Example Output**
+```python
+{
+    "high_experience": [
+        {
+        "name": "lugia",
+        "height": 52,
+        "weight": 2160,
+        "base_experience": 306
+        }
+    ],
+    "low_experience": [
+        {
+            "name": "onix",
+            "height": 88,
+            "weight": 2100,
+            "base_experience": 77
+        }
+    ],
+    "high_experience_count": 1,
+    "low_experience_count": 1
+}
+```
+
+</details>
+
 </details>
 
 ---
@@ -718,6 +791,7 @@ Across these projects, I practiced:
 - transforming dictionary-based data into list-based records
 - handling invalid input and edge cases
 - building resilient data ingestion workflows
+- building a complete ETL-style data pipeline from input to output
 
 ---
 
