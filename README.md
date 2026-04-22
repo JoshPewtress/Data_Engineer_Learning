@@ -1,8 +1,8 @@
-# 🏁 Starting Off: Python Foundations and Data Processing
+# 🏁 Data Engineering Learning Journey
 
 ## 📌 Overview
 
-> This section focuses on building foundational Python skills and applying them to basic data processing tasks.  
+> This progression reflects the transition from scripting to building data systems.  
 > The goal is to move from simple scripting toward building small, structured data pipelines by combining reusable patterns into complete workflows.
 
 ---
@@ -13,6 +13,7 @@
 - [Learning Blocks](#-learning-blocks)
     - [Block 1: Fundamentals — Data Processing](#block-1-fundamentals--data-processing)
     - [Block 2: API Data Ingestion](#block-2-api-data-ingestion)
+    - [Block 3: Data Storage and Querying](#block-3-data-storage-and-querying)
 - [Concepts Reinforced](#-concepts-reinforced)
 - [Notes for Future Me](#-notes-for-future-me)
 
@@ -36,13 +37,16 @@ DATA_ENGINEER_LEARNING/
 │   │   ├── convert_csv_to_json.py
 │   │   └── student_data_pipeline.py
 │   │
-│   └── api_data_ingestion/
-│       ├── simple_request.py
-│       ├── get_pokemon_data.py
-│       ├── pokemon_data_pipeline.py
-│       ├── filter_pokemon_data.py
-│       ├── pokemon_data_error_handling.py
-│       └── pokemon_etl_pipeline.py
+│   ├── api_data_ingestion/
+│   │   ├── simple_request.py
+│   │   ├── get_pokemon_data.py
+│   │   ├── pokemon_data_pipeline.py
+│   │   ├── filter_pokemon_data.py
+│   │   ├── pokemon_data_error_handling.py
+│   │   └── pokemon_etl_pipeline.py
+│   │
+│   └── data_storage_and_querying/
+│       └── pokemon_db_setup.py
 │
 ├── data/
 │   ├── raw/
@@ -51,9 +55,10 @@ DATA_ENGINEER_LEARNING/
 │   ├── processed/
 │   │   ├── cleaned.csv
 │   │   └── output.json
-│   └── outputs/
-│       ├── summary.json
-│       └── pokemon_summary.json
+│   ├── outputs/
+│   │    ├── summary.json
+│   │    └── pokemon_summary.json
+│   └── pokemon.db # generated at runtime (not committed)
 │
 ├── .gitignore
 └── README.md
@@ -768,30 +773,103 @@ def main():
 
 </details>
 
+<a id="block-3-data-storage-and-querying"></a>
+<details>
+<summary><strong>Block 3: Data Storage and Querying 🟦</strong></summary>
+<br>
+
+> This block introduces persistent data storage using a relational database and shifts data processing from in-memory operations to structured querying.  
+
+> It focuses on:
+> - storing structured data in a database
+> - defining table schemas
+> - inserting and managing records
+> - querying data using SQL
+> - integrating SQL with Python workflows
+
+---
+
+<details>
+<summary><strong>🔹 Storing Data in SQLite</strong></summary>
+<br>
+
+**Script**  
+- [pokemon_db_setup.py](./python/data_storage_and_querying/pokemon_db_setup.py)
+
+**Purpose**  
+Store previously collected API data in a structured database instead of JSON files.  
+This builds directly on the API ingestion pipeline by introducing a persistent storage layer for collected data.  
+The database file is generated at runtime and is excluded via `.gitignore`.  
+
+**What I Built**  
+A script that:
+
+- reads Pokémon data from a JSON file
+- creates a SQLite database (`pokemon.db`)
+- defines a table schema for Pokémon data
+- inserts records into the database
+- queries stored data and prints results
+
+**Key Takeaways**
+
+- Databases store data persistently beyond script execution
+- SQL tables define structured schemas for data
+- Python can execute SQL commands using `sqlite3`
+- Parameterized queries (`?`) prevent SQL injection
+- Data can now be queried instead of iterated manually
+- This marks the transition from scripting → data systems
+
+**Quick Reference**
+```python
+conn = sqlite3.connect("data/pokemon.db")
+cursor = conn.cursor()
+
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS pokemon (
+    id INTEGER PRIMARY KEY,
+    name TEXT UNIQUE,
+    height INTEGER,
+    weight INTEGER,
+    base_experience INTEGER
+)
+""")
+```
+
+**Console Output (Script Preview)**
+```text
+(1, 'lugia', 52, 2160, 306)
+(2, 'onix', 88, 2100, 77)
+```
+
+**Database View (SQLite)**
+| ID | Name | Height | Weight | Base Experience |
+| :--- | :--- | :--- | :--- | :--- |
+| 1 | lugia | 52 | 2160 | 306 |
+| 2 | onix | 88 | 2100 | 77 |
+| 3 | pikachu | 4 | 60 | 112 |
+| 4 | bulbasaur | 7 | 69 | 64 |
+
+</details>
+
+</details>
+
 ---
 
 <a id="-concepts-reinforced"></a>
 ## 🛠️ Concepts Reinforced
 
-Across these projects, I practiced:
-- lists and loops
-- conditionals
-- dictionaries for counting and aggregation
-- reusable functions
-- reading and writing CSV files
-- converting data to JSON
-- building simple multi-step data pipelines
-- making external API requests
-- parsing and navigating JSON responses
-- separating data retrieval from transformation logic
-- designing consistent data structures for reuse
-- aggregating multiple API responses into a dataset
-- writing external data to persistent storage
-- filtering datasets based on business logic conditions
-- transforming dictionary-based data into list-based records
-- handling invalid input and edge cases
-- building resilient data ingestion workflows
-- building a complete ETL-style data pipeline from input to output
+Across these blocks, I practiced:
+
+- Python fundamentals (loops, conditionals, data structures)
+- Data transformation and aggregation
+- CSV and JSON data handling
+- API data ingestion and validation
+- Building multi-step data pipelines
+- Separating extraction, transformation, and output logic
+- Introducing persistent storage with SQLite
+- Executing SQL queries from Python
+- Designing structured data schemas
+- Understanding when to use SQL vs Python
 
 ---
 
@@ -831,5 +909,19 @@ Across these projects, I practiced:
 
 - File paths should match project structure  
     → Keep output in `data/raw`, `data/processed`, or `data/outputs`
+
+- Databases are not just storage  
+    → They are tools for querying and analysis
+
+- Avoid overusing Python loops on structured data
+    → SQL is often more efficient and readable
+
+- Always use parameterized queries
+    → Protects against SQL injection and errors
+
+- Structure your schema carefully
+    → Changing it later is harder than designing it well early
+
+- Think in rows and tables, not just dictionaries
 
 </details>
