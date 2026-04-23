@@ -772,6 +772,8 @@ def main():
 
 </details>
 
+---
+
 </details>
 
 <a id="block-3-data-storage-and-querying"></a>
