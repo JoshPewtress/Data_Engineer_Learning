@@ -46,7 +46,8 @@ DATA_ENGINEER_LEARNING/
 │   │   └── pokemon_etl_pipeline.py
 │   │
 │   └── data_storage_and_querying/
-│       └── pokemon_db_setup.py
+│       ├── pokemon_db_setup.py
+│       └── pokemon_query_engine.py
 │
 ├── data/
 │   ├── raw/
@@ -851,6 +852,67 @@ CREATE TABLE IF NOT EXISTS pokemon (
 
 </details>
 
+---
+
+<details>
+<summary><strong>🔹 Querying Data with SQL</strong></summary>
+<br>
+
+**Script**  
+[pokemon_query_engine.py](./python/data_storage_and_querying/pokemon_query_engine.py)
+
+**Purpose**  
+Retrieve and filter stored data using SQL queries instead of Python loops.
+
+**What I Built**  
+A script that:  
+- connects to the existing SQLite database
+- queries Pokémon based on specific conditions
+- sorts and limits results using SQL
+- formats and displays the results in a readable way
+
+**Key Takeaways**
+
+- SQL can handle filtering, sorting, and limiting data directly
+- Python should orchestrate queries, not replace them
+- Using `sqlite3.Row` allows access to columns by name instead of index
+- Selecting specific columns is better practice than using `SELECT *`
+- This marks the shift from storing data → querying data effectively
+
+**Quick Reference**
+```sql
+# Example Query (High Experience Pokémon)
+
+SELECT id, name, height, weight, base_experience
+FROM pokemon
+WHERE base_experience > ?
+ORDER BY base_experience DESC
+LIMIT 3
+```
+
+```sql
+# Example Query (Lightweight Pokémon)
+
+SELECT id, name, height, weight, base_experience
+FROM pokemon
+WHERE weight < ?
+ORDER BY weight ASC
+```
+
+**Console Output (Script Preview)**
+```text
+Top Pokémon by Base Experience:
+Name: Lugia | Base Experience: 306
+Name: Rayquaza | Base Experience: 306
+Name: Umbreon | Base Experience: 184
+
+Lightest Pokémon by Weight:
+Name: Pikachu | Weight: 60
+Name: Bulbasaur | Weight: 69
+```
+
+</details>
+
 </details>
 
 ---
@@ -870,6 +932,7 @@ Across these blocks, I practiced:
 - Executing SQL queries from Python
 - Designing structured data schemas
 - Understanding when to use SQL vs Python
+- Using SQL for filtering, sorting, and limiting datasets
 
 ---
 
@@ -913,15 +976,18 @@ Across these blocks, I practiced:
 - Databases are not just storage  
     → They are tools for querying and analysis
 
-- Avoid overusing Python loops on structured data
+- Avoid overusing Python loops on structured data  
     → SQL is often more efficient and readable
 
-- Always use parameterized queries
+- Always use parameterized queries  
     → Protects against SQL injection and errors
 
-- Structure your schema carefully
+- Structure your schema carefully  
     → Changing it later is harder than designing it well early
 
 - Think in rows and tables, not just dictionaries
+
+- Let SQL do the heavy lifting  
+    → Filtering, sorting, and limiting should happen in the database when possible
 
 </details>
