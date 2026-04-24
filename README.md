@@ -47,7 +47,8 @@ DATA_ENGINEER_LEARNING/
 │   │
 │   └── data_storage_and_querying/
 │       ├── pokemon_db_setup.py
-│       └── pokemon_query_engine.py
+│       ├── pokemon_query_engine.py
+│       └── pokemon_model_setup.py
 │
 ├── data/
 │   ├── raw/
@@ -57,9 +58,10 @@ DATA_ENGINEER_LEARNING/
 │   │   ├── cleaned.csv
 │   │   └── output.json
 │   ├── outputs/
-│   │    ├── summary.json
-│   │    └── pokemon_summary.json
-│   └── pokemon.db # generated at runtime (not committed)
+│   │   ├── summary.json
+│   │   └── pokemon_summary.json
+│   └── database/
+│       └── pokemon.db # generated at runtime (not committed)
 │
 ├── .gitignore
 └── README.md
@@ -77,7 +79,7 @@ DATA_ENGINEER_LEARNING/
 <br>
 
 > This block focuses on core Python concepts applied to structured data workflows.
-
+>
 > It covers:
 > - Iteration and conditional logic
 > - Data aggregation with dictionaries
@@ -93,24 +95,32 @@ DATA_ENGINEER_LEARNING/
 <summary><strong>🔹 Working with Lists, Loops, and Conditionals</strong></summary>
 <br>
 
-**Script**  
+### Script
 - [View even/odd split implementation](./python/fundamentals_data_processing/even_odd_split.py)
 
-**Purpose**:  
+---
+
+### Purpose
 Learn how to iterate through a list and apply conditional logic to categorize data.
 
-**What I Built**  
+---
+
+### What I Built
 A function that separates a list of numbers into:
 - even numbers
 - odd numbers
 
-**Key Takeaways**
+---
+
+### Key Takeaways
 - Using `%` (modulo) to determine even vs odd
 - Iterating through lists with `for` loops
 - Building new lists based on conditions
 - Returning multiple values from a function
 
-**Quick Reference**
+---
+
+### Quick Reference
 ```python
 def sort_by_even_odd(numbers):
     even_numbers = []
@@ -125,7 +135,9 @@ def sort_by_even_odd(numbers):
     return even_numbers, odd_numbers
 ```
 
-**Example Usage**
+---
+
+### Example Usage
 ```python
 numbers = [12, 47, 83, 29, 5, 64]
 even, odd = sort_by_even_odd(numbers)
@@ -141,23 +153,30 @@ print(odd)    # [47, 83, 29, 5]
 <summary><strong>🔹 Using Dictionaries for Counting & Aggregation</strong></summary>
 <br>
 
-**Script**  
+### Script
 - [View name counting implementation](./python/fundamentals_data_processing/count_name_occurrences.py)
 
-**Purpose**  
+---
+
+### Purpose
 Learn how to count occurrences of items using dictionaries.
 
-**What I Built**  
+---
+
+### What I Built
 A function that counts how many times each name appears in a list.
 
-**Key Takeaways**  
+---
+
+### Key Takeaways
 - Dictionaries are ideal for tracking frequency
 - `.get(key, default)` avoids key errors and simplifies counting
 - Pattern: *check* → *increment* → *store*
 - This pattern is widely used in data processing and analytics
 
-**Quick Reference**
+---
 
+### Quick Reference
 ```python
 def count_duplicate_names(names):
     output = {}
@@ -168,7 +187,9 @@ def count_duplicate_names(names):
     return output
 ```
 
-**Example Usage**
+---
+
+### Example Usage
 ```python
 names = ["Alice", "Bob", "Alice", "Charlie", "Bob", "Alice"]
 counts = count_duplicate_names(names)
@@ -183,14 +204,18 @@ print(counts)    # {'Alice': 3, 'Bob': 2, 'Charlie': 1}
 <summary><strong>🔹 Reading and Writing CSV Files</strong></summary>
 <br>
 
-**Script**  
+### Script
 - [View CSV writing implementation](./python/fundamentals_data_processing/write_csv.py)
 - [View CSV reading/count implementation](./python/fundamentals_data_processing/read_csv_and_count.py)
 
-**Purpose**  
+---
+
+### Purpose
 Learn how to create, read, and process structured data using CSV files.
 
-**What I Built**  
+---
+
+### What I Built
 Two scripts:
 1. **CSV Writer**
     - Creates a CSV file from structured data
@@ -199,14 +224,18 @@ Two scripts:
     - Converts rows into dictionaries
     - Counts occurrences of names
 
-**Key Takeaways**  
+---
+
+### Key Takeaways
 - How to write CSV files using `csv.writer`
 - How to read CSV files using `csv.DictReader`
 - CSV data is read as **strings by default**
 - Separating file creation from processing improves clarity
 - Reusing earlier patterns (dictionary counting) on file data
 
-**Quick Reference — Writing CSV**
+---
+
+### Quick Reference — Writing CSV
 ```python
 import csv
 
@@ -215,7 +244,9 @@ with open(file_name, "w", newline="") as file:
     writer.writerows(data)
 ```
 
-**Quick Reference — Reading CSV**
+---
+
+### Quick Reference — Reading CSV
 ```python
 import csv
 
@@ -231,13 +262,17 @@ with open(file_name, "r", newline="") as file:
 <summary><strong>🔹 Filtering and Cleaning Data</strong></summary>
 <br>
 
-**Script**  
+### Script
 - [View score filtering implementation](./python/fundamentals_data_processing/filter_scores_and_write_csv.py)
 
-**Purpose**  
+---
+
+### Purpose
 Learn how to filter records, remove unwanted data, and preserve the most useful version of repeated entries.
 
-**What I Built**  
+---
+
+### What I Built
 A script that:
 - reads student scores from a CSV file
 - keeps only scores greater than or equal to 80
@@ -245,14 +280,18 @@ A script that:
 - counts how many failing grades were removed
 - writes the cleaned results to a new CSV file
 
-**Key Takeaways**  
+---
+
+### Key Takeaways
 - Filtering rows based on conditions
 - Converting CSV string values into integers before comparison
 - Using dictionaries to collapse duplicate records
 - Using `max()` to preserve the highest value for repeated names
 - Writing cleaned data back to a CSV file
 
-**Quick Reference**
+---
+
+### Quick Reference
 ```python
 def filter_by_score(data):
     filtered_scores = {}
@@ -277,13 +316,17 @@ def filter_by_score(data):
 <summary><strong>🔹 Converting Cleaned Data to JSON</strong></summary>
 <br>
 
-**Script**  
+### Script
 - [View CSV to JSON conversion implementation](./python/fundamentals_data_processing/convert_csv_to_json.py)
 
-**Purpose**  
+---
+
+### Purpose
 Learn how to transform cleaned CSV data into a structured JSON format for downstream use.
 
-**What I Built**  
+---
+
+### What I Built
 A script that:
 - reads cleaned student data from a CSV file
 - skips non-student summary rows
@@ -291,13 +334,17 @@ A script that:
 - stores the result under a `"students"` key
 - writes the final structure to a JSON file
 
-**Key Takeaways**  
+---
+
+### Key Takeaways
 - JSON is useful for storing structured, nested data
 - `json.dump()` writes Python dictionaries and lists to JSON
 - CSV data often needs additional cleanup before transformation
 - upstream design decisions can affect downstream processing
 
-**Quick Reference**
+---
+
+### Quick Reference
 ```python
 def transform_to_students(data):
     students = []
@@ -314,7 +361,9 @@ def transform_to_students(data):
     return {"students": students}
 ```
 
-**Example Output**
+---
+
+### Example Output
 ```json
 {
     "students": [
@@ -337,13 +386,17 @@ def transform_to_students(data):
 <summary><strong>🔹 Building a Complete Data Pipeline ⚡</strong></summary>
 <br>
 
-**Script**  
+### Script
 - [View full data pipeline implementation](./python/fundamentals_data_processing/student_data_pipeline.py)
 
-**Purpose**  
+---
+
+### Purpose
 Combine earlier concepts into a single workflow that reads raw CSV data, filters passing scores, aggregates results, and writes a structured JSON summary.
 
-**What I Built**  
+---
+
+### What I Built
 A script that:
 - reads student score data from a CSV file
 - filters out scores below a passing threshold
@@ -352,14 +405,18 @@ A script that:
 - calculates the number of unique passing students
 - writes the final summary to a JSON file
 
-**Key Takeaways**  
+---
+
+### Key Takeaways
 - Chaining functions together into a complete workflow
 - Separating reading, filtering, transforming, and writing into distinct steps
 - Using dictionaries to aggregate results
 - Designing structured JSON output for summaries
 - Reusing earlier patterns in a larger program
 
-**Quick Reference**  
+---
+
+### Quick Reference
 ```python
 def transform_to_dictionary(data):
     counts = {}
@@ -375,7 +432,9 @@ def transform_to_dictionary(data):
     }
 ```
 
-**Example Output**
+---
+
+### Example Output
 ```json
 {
     "counts": {
@@ -398,7 +457,7 @@ def transform_to_dictionary(data):
 <br>
 
 > This block focuses on pulling real-world data from an API, inspecting JSON responses, extracting useful fields, and preparing that data for further transformation and storage.
-
+>
 > It builds toward a complete data ingestion pipeline that:
 > - requests external data
 > - structures useful values
@@ -411,13 +470,17 @@ def transform_to_dictionary(data):
 <summary><strong>🔹 Fetching Data from an API</strong></summary>
 <br>
 
-**Script**  
+### Script
 - [View API request implementation](./python/api_data_ingestion/simple_request.py)
 
-**Purpose**  
+---
+
+### Purpose
 Learn how to retrieve data from an external API, inspect the response, and extract useful fields from returned JSON data.
 
-**What I Built**  
+---
+
+### What I Built
 A script that:
 - sends a GET request to the Pokémon API
 - retrieves data for a specified Pokémon
@@ -425,14 +488,18 @@ A script that:
 - converts the response into JSON format
 - extracts and displays selected attributes in a readable format
 
-**Key Takeaways**
+---
+
+### Key Takeaways
 - Using `requests.get()` to call an external API
 - Checking `response.status_code` before using the response
 - Converting API responses into Python dictionaries using `.json()`
 - Accessing nested data using dictionary keys
 - Separating data retrieval logic from display logic
 
-**Quick Reference**
+---
+
+### Quick Reference
 ```python
 import requests
 
@@ -455,7 +522,9 @@ def display_pokemon_info(pokemon):
     print(f"Weight: {pokemon['weight']}")
 ```
 
-**Example Output**
+---
+
+### Example Output
 ```text
 Name: Pikachu
 Base Experience: 112
@@ -470,26 +539,34 @@ Weight: 60
 <summary><strong>🔹 Structuring API Response Data</strong></summary>
 <br>
 
-**Script**  
+### Script
 - [View structured API transformation](./python/api_data_ingestion/get_pokemon_data.py)
 
-**Purpose**  
+---
+
+### Purpose
 Learn how to transform raw API JSON into a clean, reusable Python dictionary.
 
-**What I Built**  
+---
+
+### What I Built
 A script that:
 - retrieves Pokémon data from the API
 - extracts only relevant fields
 - converts raw JSON into a structured dictionary
 - separates API logic from transformation logic
 
-**Key Takeaways**  
+---
+
+### Key Takeaways
 - Raw API responses should not be used directly, always transform them first
 - Creating a transformation layer makes data reusable
 - Functions should have a single responsibility (fetch vs transform)
 - Returning consistent data shapes is critical for scaling
 
-**Quick Reference**
+---
+
+### Quick Reference
 ```python
 def transform_pokemon_data(pokemon):
     return {
@@ -500,7 +577,9 @@ def transform_pokemon_data(pokemon):
     }
 ```
 
-**Example Output**
+---
+
+### Example Output
 ```python
 {
     "name": "pikachu",
@@ -518,13 +597,17 @@ def transform_pokemon_data(pokemon):
 <summary><strong>🔹 Collecting and Saving API Data</strong></summary>
 <br>
 
-**Script**  
+### Script
 - [View API ingestion pipeline](./python/api_data_ingestion/pokemon_data_pipeline.py)
 
-**Purpose**  
+---
+
+### Purpose
 Learn how to combine API requests, data transformation, and file output into a simple ingestion workflow.
 
-**What I Built**  
+---
+
+### What I Built
 A script that:
 - loops through a list of Pokémon
 - retrieves data for each one using the API
@@ -532,14 +615,18 @@ A script that:
 - aggregates the results into a structured dataset
 - writes the final dataset to a JSON file
 
-**Key Takeaways**  
+---
+
+### Key Takeaways
 - Looping over multiple API calls to build a dataset
 - Aggregating structured records into a single collection
 - Writing external data to disk using `json.dump()`
 - Skipping invalid responses without breaking the pipeline
 - Beginning to think in terms of ingestion pipelines
 
-**Quick Reference**
+---
+
+### Quick Reference
 ```python
 def transform_pokemon_data(pokemon_list):
     output = {}
@@ -557,7 +644,9 @@ def transform_pokemon_data(pokemon_list):
     return output
 ```
 
-**Example Output**
+---
+
+### Example Output
 ```python
 {
     "Pikachu": {
@@ -581,13 +670,17 @@ def transform_pokemon_data(pokemon_list):
 <summary><strong>🔹 Filtering and Summarizing API Data</strong></summary>
 <br>
 
-**Script**  
+### Script
 - [View filtering implementation](./python/api_data_ingestion/filter_pokemon_data.py)
 
-**Purpose**  
+---
+
+### Purpose
 Learn how to filter a dataset based on a condition and produce a structured summary of the results.
 
-**What I Built**  
+---
+
+### What I Built
 A script that:
 - reads Pokémon data from a JSON file
 - filters Pokémon based on base experience
@@ -595,14 +688,18 @@ A script that:
 - builds a list of filtered records
 - returns both the filtered dataset and a count of matching entries
 
-**Key Takeaways**  
+---
+
+### Key Takeaways
 - Filtering structured data using conditional logic
 - Iterating through nested dictionaries (`key`, `value`)
 - Converting dictionary-based data into a list of records
 - Building summary outputs that include both data and metadata
 - Reusing earlier patterns (filter → transform → summarize) on real datasets
 
-**Quick Reference**
+---
+
+### Quick Reference
 ```python
 def filter_by_base_experience(pokemon, min_exp):
     filtered = []
@@ -626,7 +723,9 @@ def filter_by_base_experience(pokemon, min_exp):
     }
 ```
 
-**Example Output**
+---
+
+### Example Output
 ```python
 {
     "high_experience": [
@@ -649,13 +748,17 @@ def filter_by_base_experience(pokemon, min_exp):
 <summary><strong>🔹 Handling Invalid Data and API Errors</strong></summary>
 <br>
 
-**Script**  
+### Script
 - [View error handling implementation](./python/api_data_ingestion/pokemon_data_error_handling.py)
 
-**Purpose**  
+---
+
+### Purpose
 Learn how to make API-driven workflows resilient by handling invalid input, failed requests, and unexpected data without crashing the program.
 
-**What I Built**  
+---
+
+### What I Built
 A script that:
 - normalizes user input before making API requests
 - skips blank or invalid Pokémon inputs
@@ -663,14 +766,18 @@ A script that:
 - continues processing valid records without interruption
 - extracts selected fields into a structured format
 
-**Key Takeaways**
+---
+
+### Key Takeaways
 - Always normalize input early (`.strip()` and `.lower()`)
 - Never assume external data is valid
 - Use conditional checks to prevent runtime errors
 - Skip invalid records instead of stopping the program
 - Keep validation logic close to where data is used
 
-**Quick Reference**
+---
+
+### Quick Reference
 ```python
 def get_pokemon_data(name):
     name = name.strip().lower()
@@ -689,7 +796,9 @@ def get_pokemon_data(name):
         return None
 ```
 
-**Example Output**
+---
+
+### Example Output
 ```python
 Skipping 'invalidmon', no record was found.
 Skipping '', blank entry.
@@ -707,13 +816,17 @@ Skipping '', blank entry.
 <summary><strong>🔹 Building a Complete API Data Pipeline ⚡</strong></summary>
 <br>
 
-**Script**  
+### Script
 - [View full ETL pipeline implementation](./python/api_data_ingestion/pokemon_etl_pipeline.py)
 
-**Purpose**  
+---
+
+### Purpose
 Combine API ingestion, validation, transformation, filtering, and file output into a single cohesive workflow.
 
-**What I Built**  
+---
+
+### What I Built
 A complete pipeline that:
 - accepts user input for Pokémon names
 - normalizes and validates input
@@ -725,14 +838,18 @@ A complete pipeline that:
 - builds a structured summary of results
 - writes the final summary to a separate JSON file
 
-**Key Takeaways**
+---
+
+### Key Takeaways
 - Combining multiple functions into a cohesive data workflow
 - Separating raw data from processed outputs
 - Reusing helper functions to maintain DRY code
 - Designing consistent data structures across pipeline stages
 - Thinking in terms of Extract → Transform → Load (ETL)
 
-**Quick Reference**
+---
+
+### Quick Reference
 ```python
 def main():
     pokemon_input = get_user_input()
@@ -746,7 +863,9 @@ def main():
         write_json_file(SUMMARY_FILE_PATH, pokemon_summary)
 ```
 
-**Example Output**
+---
+
+### Example Output
 ```python
 {
     "high_experience": [
@@ -782,7 +901,7 @@ def main():
 <br>
 
 > This block introduces persistent data storage using a relational database and shifts data processing from in-memory operations to structured querying.  
-
+>
 > It focuses on:
 > - storing structured data in a database
 > - defining table schemas
@@ -796,15 +915,19 @@ def main():
 <summary><strong>🔹 Storing Data in SQLite</strong></summary>
 <br>
 
-**Script**  
+### Script
 - [pokemon_db_setup.py](./python/data_storage_and_querying/pokemon_db_setup.py)
 
-**Purpose**  
+---
+
+### Purpose
 Store previously collected API data in a structured database instead of JSON files.  
 This builds directly on the API ingestion pipeline by introducing a persistent storage layer for collected data.  
-The database file is generated at runtime and is excluded via `.gitignore`.  
+The database file is generated at runtime and is excluded via `.gitignore`. 
 
-**What I Built**  
+---
+
+### What I Built
 A script that:
 
 - reads Pokémon data from a JSON file
@@ -813,8 +936,9 @@ A script that:
 - inserts records into the database
 - queries stored data and prints results
 
-**Key Takeaways**
+---
 
+### Key Takeaways
 - Databases store data persistently beyond script execution
 - SQL tables define structured schemas for data
 - Python can execute SQL commands using `sqlite3`
@@ -822,7 +946,9 @@ A script that:
 - Data can now be queried instead of iterated manually
 - This marks the transition from scripting → data systems
 
-**Quick Reference**
+---
+
+### Quick Reference
 ```python
 conn = sqlite3.connect("data/pokemon.db")
 cursor = conn.cursor()
@@ -838,13 +964,17 @@ CREATE TABLE IF NOT EXISTS pokemon (
 """)
 ```
 
-**Console Output (Script Preview)**
+---
+
+### Console Output (Script Preview)
 ```text
 (1, 'lugia', 52, 2160, 306)
 (2, 'onix', 88, 2100, 77)
 ```
 
-**Database View (SQLite)**
+---
+
+### Database View (SQLite)
 | ID | Name | Height | Weight | Base Experience |
 | :--- | :--- | :--- | :--- | :--- |
 | 1 | lugia | 52 | 2160 | 306 |
@@ -860,31 +990,38 @@ CREATE TABLE IF NOT EXISTS pokemon (
 <summary><strong>🔹 Querying Data with SQL</strong></summary>
 <br>
 
-**Script**  
-[pokemon_query_engine.py](./python/data_storage_and_querying/pokemon_query_engine.py)
+### Script
+- [pokemon_query_engine.py](./python/data_storage_and_querying/pokemon_query_engine.py)
 
-**Purpose**  
+---
+
+### Purpose
 Retrieve and filter stored data using SQL queries instead of Python loops.
 
-**What I Built**  
+---
+
+### What I Built
 A script that:  
 - connects to the existing SQLite database
 - queries Pokémon based on specific conditions
 - sorts and limits results using SQL
 - formats and displays the results in a readable way
 
-**Key Takeaways**
+---
 
+### Key Takeaways
 - SQL can handle filtering, sorting, and limiting data directly
 - Python should orchestrate queries, not replace them
 - Using `sqlite3.Row` allows access to columns by name instead of index
 - Selecting specific columns is better practice than using `SELECT *`
 - This marks the shift from storing data → querying data effectively
 
-**Quick Reference**
-```sql
-# Example Query (High Experience Pokémon)
+---
 
+### Quick Reference
+
+### High Experience Pokémon
+```sql
 SELECT id, name, height, weight, base_experience
 FROM pokemon
 WHERE base_experience > ?
@@ -892,16 +1029,19 @@ ORDER BY base_experience DESC
 LIMIT 3
 ```
 
-```sql
-# Example Query (Lightweight Pokémon)
+---
 
+### Lightweight Pokémon
+```sql
 SELECT id, name, height, weight, base_experience
 FROM pokemon
 WHERE weight < ?
 ORDER BY weight ASC
 ```
 
-**Console Output (Script Preview)**
+---
+
+### Console Output (Script Preview)
 ```text
 Top Pokémon by Base Experience:
 Name: Lugia | Base Experience: 306
@@ -911,6 +1051,97 @@ Name: Umbreon | Base Experience: 184
 Lightest Pokémon by Weight:
 Name: Pikachu | Weight: 60
 Name: Bulbasaur | Weight: 69
+```
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔹 Data Modeling with Relationships</strong></summary>
+<br>
+
+### Script
+- [pokemon_model_setup.py](./python/data_storage_and_querying/pokemon_model_setup.py)
+
+---
+
+### Purpose
+Design a more scalable schema by separating data into related tables and querying across them using joins.
+
+---
+
+### What I Built
+A script that:
+
+- creates two related tables (`pokemon` and `pokemon_experience`)
+- inserts data into both tables using a shared key
+- enforces relationships via a foreign key
+- queries across tables using a JOIN
+- formats results for display
+
+---
+
+### Key Takeaways
+- Data should be organized by responsibility, not convenience
+- Relationships between tables are handled with foreign keys
+- `JOIN` allows combining data across tables
+- This is the foundation of relational database design
+
+---
+
+### Schema Design
+#### pokemon
+- id *(PK)*
+- name *(UNIQUE)*
+- height
+- weight
+
+#### pokemon_experience
+- id *(PK)*
+- pokemon_id *(FK → pokemon.id)*
+- base_experience
+
+---
+
+### Why This Matters
+- Avoids stuffing all data into one table
+- Enables scalable design as new attributes are added
+- Introduces **foreign keys** and **relationships**
+- Reflects how real-world data systems are structured
+
+---
+
+### Quick Reference — Insert + Link
+```sql
+INSERT INTO pokemon (name, height, weight) VALUES (?, ?, ?);
+
+-- capture generated id
+pokemon_id = cursor.lastrowid
+
+INSERT INTO pokemon_experience (pokemon_id, base_experience) VALUES (?, ?);
+```
+
+---
+
+### Quick Reference — JOIN Query
+```sql
+SELECT p.name, pe.base_experience
+FROM pokemon p
+JOIN pokemon_experience pe ON pe.pokemon_id = p.id
+WHERE pe.base_experience > ?
+ORDER BY pe.base_experience DESC
+LIMIT 3;
+```
+
+---
+
+### Console Output (Script Preview)
+```text
+Top Pokémon by Base Experience:
+Lugia - 306
+Rayquaza - 306
+Umbreon - 184
 ```
 
 </details>
@@ -935,6 +1166,7 @@ Across these blocks, I practiced:
 - Designing structured data schemas
 - Understanding when to use SQL vs Python
 - Using SQL for filtering, sorting, and limiting datasets
+- Designing normalized schemas with multiple related tables
 
 ---
 
@@ -991,5 +1223,8 @@ Across these blocks, I practiced:
 
 - Let SQL do the heavy lifting  
     → Filtering, sorting, and limiting should happen in the database when possible
+
+- One table is rarely enough  
+    → Separate data based on responsibility and link with keys
 
 </details>
