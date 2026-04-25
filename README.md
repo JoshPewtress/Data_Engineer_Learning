@@ -48,7 +48,8 @@ DATA_ENGINEER_LEARNING/
 │   └── data_storage_and_querying/
 │       ├── pokemon_db_setup.py
 │       ├── pokemon_query_engine.py
-│       └── pokemon_model_setup.py
+│       ├── pokemon_model_setup.py
+│       └── pokemon_api_sql_etl_pipeline.py
 │
 ├── data/
 │   ├── raw/
@@ -1146,6 +1147,89 @@ Umbreon - 184
 
 </details>
 
+---
+
+<details>
+<summary><strong>🔹 ETL Pipeline with API Integration</strong></summary>
+<br>
+
+### Script
+- [pokemon_api_sql_etl_pipeline.py](./python/data_storage_and_querying/pokemon_api_sql_etl_pipeline.py)
+
+---
+
+### Purpose
+Build a complete ETL pipeline that extracts Pokémon data from an external API, transforms it into a structured format, loads it into a normalized SQL database, and supports interactive querying.
+
+---
+
+### What I Built
+A full pipeline that:
+
+- extracts Pokémon data from the PokéAPI using user input
+- transforms raw JSON into structured dictionaries
+- loads data into a normalized SQLite schema
+- models one-to-many relationships (Pokémon → types)
+- allows users to query Pokémon by type
+- supports repeated interactive queries in a CLI loop
+
+---
+
+### Key Takeaways
+- ETL pipelines separate data flow into clear stages: Extract → Transform → Load
+- External APIs act as real-world data sources for ingestion
+- Normalized schemas improve scalability and flexibility
+- SQL handles filtering and relationships more efficiently than Python loops
+- User interaction can turn pipelines into reusable tools
+
+---
+
+### Schema Design
+#### pokemon
+- id *(PK)*
+- name *(UNIQUE)*
+- height
+- weight
+
+---
+
+#### pokemon_types
+- id *(PK)*
+- pokemon_id *(FK → pokemon.id)*
+- pokemon_type
+
+---
+
+### Quick Reference — Query by Type
+```sql
+SELECT p.name, pt.pokemon_type
+FROM pokemon p
+JOIN pokemon_types pt ON pt.pokemon_id = p.id
+WHERE pt.pokemon_type = ?
+ORDER BY p.name ASC
+```
+
+---
+
+### Example Output
+```text
+Available Pokémon types:
+- dragon
+- flying
+- ghost
+- water
+
+Dragon-type Pokémon:  
+Bagon — dragon  
+Dragapult — dragon
+
+Search by type again (Y/N): n
+
+Pipeline complete.
+```
+
+</details>
+
 </details>
 
 ---
@@ -1167,6 +1251,7 @@ Across these blocks, I practiced:
 - Understanding when to use SQL vs Python
 - Using SQL for filtering, sorting, and limiting datasets
 - Designing normalized schemas with multiple related tables
+- Building end-to-end ETL pipelines using API + SQL integration
 
 ---
 
@@ -1226,5 +1311,8 @@ Across these blocks, I practiced:
 
 - One table is rarely enough  
     → Separate data based on responsibility and link with keys
+
+- ETL pipelines are about flow, not just code  
+    → Separate extraction, transformation, and loading clearly
 
 </details>
