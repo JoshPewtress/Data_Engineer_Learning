@@ -49,7 +49,15 @@ DATA_ENGINEER_LEARNING/
 │       ├── pokemon_db_setup.py
 │       ├── pokemon_query_engine.py
 │       ├── pokemon_model_setup.py
-│       └── pokemon_api_sql_etl_pipeline.py
+│       ├── pokemon_api_sql_etl_pipeline.py
+│       └── pokemon_type_etl/
+│           ├── main.py
+│           ├── config.py
+│           ├── extract.py
+│           ├── transform.py
+│           ├── load.py
+│           ├── query.py
+│           └── display.py
 │
 ├── data/
 │   ├── raw/
@@ -1230,6 +1238,83 @@ Pipeline complete.
 
 </details>
 
+---
+
+<details>
+<summary><strong>🔹 Modular ETL Pipeline Structure</strong></summary>
+<br>
+
+### Script
+- [pokemon_type_etl/main.py](./python/data_storage_and_querying/pokemon_type_etl/main.py)
+
+---
+
+### Purpose
+Reorganize the interactive API-to-SQL ETL pipeline into separate modules based on clearly defined responsibilities.
+
+---
+
+### What I Built
+A modular version of the ETL pipeline that separates:
+
+- configuration management
+- API extraction
+- data transformation
+- SQL table creation and loading
+- SQL querying
+- display and user input logic
+- pipeline orchestration
+
+---
+
+### Project Structure
+```text
+pokemon_type_etl/
+├── main.py
+├── config.py
+├── extract.py
+├── transform.py
+├── load.py
+├── query.py
+└── display.py
+```
+
+---
+
+### Module Responsibilities
+
+#### main.py
+- Controls the overall pipeline flow.
+
+#### config.py
+- Stores shared constants like database path and API base URL.
+
+#### extract.py
+- Handles user Pokémon input and API requests.
+
+#### transform.py
+- Converts raw API JSON into clean dictionaries.
+
+#### load.py
+- Creates tables, clears old data, and loads transformed records into SQLite.
+
+#### query.py
+- Reads data from SQLite using SQL queries.
+
+#### display.py
+- Handles user-facing output and repeated type search prompts.
+
+---
+
+### Key Takeaways
+- Modular files make larger projects easier to navigate
+- Each module should have a clear responsibility
+- `main.py` should orchestrate the pipeline, not hold all logic
+- Separating code by responsibility improves maintainability
+- This structure prepares the project for future data access layers and classes
+
+</details>
+
 </details>
 
 ---
@@ -1252,6 +1337,7 @@ Across these blocks, I practiced:
 - Using SQL for filtering, sorting, and limiting datasets
 - Designing normalized schemas with multiple related tables
 - Building end-to-end ETL pipelines using API + SQL integration
+- Organizing ETL pipeline code into separate modules by responsibility
 
 ---
 
@@ -1314,5 +1400,8 @@ Across these blocks, I practiced:
 
 - ETL pipelines are about flow, not just code  
     → Separate extraction, transformation, and loading clearly
+
+- Modular code is easier to grow  
+    → Split files by responsibility before the script becomes difficult to maintain
 
 </details>
