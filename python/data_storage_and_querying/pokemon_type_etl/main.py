@@ -1,6 +1,4 @@
-import sqlite3
-
-from config import DB_PATH
+from database import create_connection
 from extract import extract, get_pokemon_input
 from transform import transform
 from load import create_tables, clear_tables, load
@@ -9,9 +7,7 @@ from display import display_available_types, display_pokemon, get_type_input, is
 
 
 def main():
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row
-    cursor = conn.cursor()
+    conn = create_connection()
 
     pokemon_input = get_pokemon_input()
     if not pokemon_input:
@@ -29,13 +25,13 @@ def main():
     print("Transforming data...")
     transformed = transform(raw)
 
-    create_tables(cursor)
-    clear_tables(cursor)
+    create_tables(conn)
+    clear_tables(conn)
 
     print("Loading data...")
-    load(cursor, transformed)
+    load(conn, transformed)
 
-    pokemon_types = get_available_types(cursor)
+    pokemon_types = get_available_types(conn)
 
     stop_requested = False
     while not stop_requested:
@@ -47,7 +43,7 @@ def main():
             conn.close()
             return
         
-        fetched_data = get_pokemon_type(cursor, type_input)
+        fetched_data = get_pokemon_type(conn, type_input)
         display_pokemon(fetched_data, type_input)
         print()
         stop_requested = is_stop_requested()
