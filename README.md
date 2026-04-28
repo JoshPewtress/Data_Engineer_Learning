@@ -53,6 +53,7 @@ DATA_ENGINEER_LEARNING/
 │       └── pokemon_type_etl/
 │           ├── main.py
 │           ├── config.py
+│           ├── database.py
 │           ├── extract.py
 │           ├── transform.py
 │           ├── load.py
@@ -1315,6 +1316,86 @@ pokemon_type_etl/
 
 </details>
 
+---
+
+<details>
+<summary><strong>🔹 Database Helper Layer (Data Access)</strong></summary>
+<br>
+
+### Script
+- [pokemon_type_etl/database.py](./python/data_storage_and_querying/pokemon_type_etl/database.py)
+
+---
+
+### Purpose
+Reduce repeated database boilerplate by introducing reusable helper functions for executing SQL commands and queries.
+
+---
+
+### What I Built
+A lightweight database layer that:
+
+- centralizes database connection creation
+- abstracts SQL execution into reusable functions
+- removes the need to pass `cursor` between modules
+- standardizes how database queries and commands are executed
+
+---
+
+### Key Takeaways
+- Repeated patterns in code are signals for abstraction
+- A data access layer separates database logic from application logic
+- Centralizing SQL execution improves maintainability
+- This is a stepping stone toward repository patterns and CRUD design
+
+---
+
+### Helper Functions
+
+```text
+create_connection
+    - Establishes a SQLite connection and enables row-based access
+
+execute_command
+    - Executes INSERT, UPDATE, DELETE, and DDL operations
+    - Returns last inserted row ID when applicable
+
+execute_query
+    - Executes SELECT queries
+    - Returns fetched results
+```
+
+---
+
+### Before vs After
+
+#### Before (cursor everywhere)
+```sql
+cursor.execute(...)
+cursor.fetchall()
+cursor.lastrowid
+```
+
+---
+
+#### After (helper layer)
+```python
+execute_command(conn, query, params)
+execute_query(conn, query, params)
+```
+
+---
+
+### Pipeline Impact
+
+```
+main.py → database.py → SQLite
+```
+
+Instead of every module interacting directly with SQLite, they now communicate through a shared interface.
+
+</details>
+
 </details>
 
 ---
@@ -1338,6 +1419,7 @@ Across these blocks, I practiced:
 - Designing normalized schemas with multiple related tables
 - Building end-to-end ETL pipelines using API + SQL integration
 - Organizing ETL pipeline code into separate modules by responsibility
+- Abstracting database interactions with a helper layer
 
 ---
 
@@ -1403,5 +1485,8 @@ Across these blocks, I practiced:
 
 - Modular code is easier to grow  
     → Split files by responsibility before the script becomes difficult to maintain
+
+- If I pass the same object everywhere (like cursor), I should consider abstraction  
+    → Database helpers reduce repetition and improve clarity
 
 </details>
