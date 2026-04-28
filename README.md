@@ -1401,7 +1401,9 @@ Instead of every module interacting directly with SQLite, they now communicate t
 ---
 
 <a id="-concepts-reinforced"></a>
-## 🛠️ Concepts Reinforced
+<details>
+<summary>🛠️ Concepts Reinforced</summary>
+<br>
 
 Across these blocks, I practiced:
 
@@ -1420,6 +1422,8 @@ Across these blocks, I practiced:
 - Building end-to-end ETL pipelines using API + SQL integration
 - Organizing ETL pipeline code into separate modules by responsibility
 - Abstracting database interactions with a helper layer
+
+</details>
 
 ---
 
