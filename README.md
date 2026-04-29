@@ -54,10 +54,9 @@ DATA_ENGINEER_LEARNING/
 │           ├── main.py
 │           ├── config.py
 │           ├── database.py
+│           ├── pokemon_repository.py
 │           ├── extract.py
 │           ├── transform.py
-│           ├── load.py
-│           ├── query.py
 │           └── display.py
 │
 ├── data/
@@ -910,7 +909,7 @@ def main():
 <summary><strong>Block 3: Data Storage and Querying 🟦</strong></summary>
 <br>
 
-> This block introduces persistent data storage using a relational database and shifts data processing from in-memory operations to structured querying.  
+> This block progresses from simple storage to structured data access patterns used in real-world applications.  
 >
 > It focuses on:
 > - storing structured data in a database
@@ -1261,8 +1260,7 @@ A modular version of the ETL pipeline that separates:
 - configuration management
 - API extraction
 - data transformation
-- SQL table creation and loading
-- SQL querying
+- centralized database access through a repository
 - display and user input logic
 - pipeline orchestration
 
@@ -1273,10 +1271,10 @@ A modular version of the ETL pipeline that separates:
 pokemon_type_etl/
 ├── main.py
 ├── config.py
+├── database.py
+├── pokemon_repository.py
 ├── extract.py
 ├── transform.py
-├── load.py
-├── query.py
 └── display.py
 ```
 
@@ -1290,17 +1288,18 @@ pokemon_type_etl/
 #### config.py
 - Stores shared constants like database path and API base URL.
 
+#### database.py
+- Provides helper functions to execute SQL commands and queries
+
+#### pokemon_repository.py
+- Owns all database operations for Pokémon data
+- Handles table creation, data loading, and querying
+
 #### extract.py
 - Handles user Pokémon input and API requests.
 
 #### transform.py
 - Converts raw API JSON into clean dictionaries.
-
-#### load.py
-- Creates tables, clears old data, and loads transformed records into SQLite.
-
-#### query.py
-- Reads data from SQLite using SQL queries.
 
 #### display.py
 - Handles user-facing output and repeated type search prompts.
@@ -1357,8 +1356,11 @@ create_connection
     - Establishes a SQLite connection and enables row-based access
 
 execute_command
-    - Executes INSERT, UPDATE, DELETE, and DDL operations
-    - Returns last inserted row ID when applicable
+    - Executes database commands (CREATE, UPDATE, DELETE)
+
+execute_insert  
+    - Executes INSERT statements
+    - Returns last inserted row ID 
 
 execute_query
     - Executes SELECT queries
@@ -1396,6 +1398,84 @@ Instead of every module interacting directly with SQLite, they now communicate t
 
 </details>
 
+---
+
+<details>
+<summary><strong>🔹 Repository Pattern for Data Access</strong></summary>
+<br>
+
+### Script
+- [pokemon_type_etl/pokemon_repository.py](./python/data_storage_and_querying/pokemon_type_etl/pokemon_repository.py)
+
+---
+
+### Purpose
+Encapsulate all Pokémon-related database operations into a single class to improve organization, readability, and scalability.
+
+---
+
+### What I Built
+A `PokemonRepository` class that:
+
+- owns all database operations related to Pokémon data
+- handles table creation and cleanup
+- inserts Pokémon and their associated types
+- retrieves available Pokémon types
+- queries Pokémon by type
+- removes the need for separate load/query modules
+
+---
+
+### Key Takeaways
+- A repository groups database logic by domain instead of operation
+- Classes can encapsulate both data and behavior
+- This pattern aligns closely with CRUD design (Create, Read, Update, Delete)
+- It improves readability by giving database operations a clear owner
+- It prepares the project for scaling into larger systems
+
+---
+
+### Responsibilities Moved
+
+#### Before:
+```text
+load.py → inserts
+query.py → reads
+```
+
+#### After:
+```text
+PokemonRepository → owns all Pokémon database behavior
+```
+
+---
+
+### Example Usage
+```python
+conn = create_connection()
+repo = PokemonRepository(conn)
+
+repo.create_tables()
+repo.clear_tables()
+
+repo.load(data)
+
+types = repo.get_available_types()
+pokemon = repo.get_pokemon_type("dragon")
+```
+
+---
+
+### Architecture Shift
+```text
+main.py → PokemonRepository → database.py → SQLite
+```
+
+- The repository defines *what* operations exist.
+- The database layer defines *how* they are executed.
+
+</details>
+
 </details>
 
 ---
@@ -1422,6 +1502,7 @@ Across these blocks, I practiced:
 - Building end-to-end ETL pipelines using API + SQL integration
 - Organizing ETL pipeline code into separate modules by responsibility
 - Abstracting database interactions with a helper layer
+- Applying the repository pattern to organize domain-specific database logic
 
 </details>
 
@@ -1492,5 +1573,8 @@ Across these blocks, I practiced:
 
 - If I pass the same object everywhere (like cursor), I should consider abstraction  
     → Database helpers reduce repetition and improve clarity
+
+- Group related database operations into a repository  
+    → Keep business logic separate from low-level SQL execution
 
 </details>
