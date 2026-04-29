@@ -1,13 +1,13 @@
 from database import create_connection
+from pokemon_repository import PokemonRepository
 from extract import extract, get_pokemon_input
 from transform import transform
-from load import create_tables, clear_tables, load
-from query import get_available_types, get_pokemon_type
 from display import display_available_types, display_pokemon, get_type_input, is_stop_requested
 
 
 def main():
     conn = create_connection()
+    repo = PokemonRepository(conn)
 
     pokemon_input = get_pokemon_input()
     if not pokemon_input:
@@ -25,13 +25,13 @@ def main():
     print("Transforming data...")
     transformed = transform(raw)
 
-    create_tables(conn)
-    clear_tables(conn)
+    repo.create_tables()
+    repo.clear_tables()
 
     print("Loading data...")
-    load(conn, transformed)
+    repo.load(transformed)
 
-    pokemon_types = get_available_types(conn)
+    pokemon_types = repo.get_available_types()
 
     stop_requested = False
     while not stop_requested:
@@ -42,8 +42,8 @@ def main():
             print("No Pokémon type entered.")
             conn.close()
             return
-        
-        fetched_data = get_pokemon_type(conn, type_input)
+
+        fetched_data = repo.get_pokemon_type(type_input)
         display_pokemon(fetched_data, type_input)
         print()
         stop_requested = is_stop_requested()

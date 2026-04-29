@@ -9,6 +9,10 @@ def create_connection():
 def execute_command(conn, query, params=()):
     cursor = conn.cursor()
     cursor.execute(query, params)
+
+def execute_insert(conn, query, params=()):
+    cursor = conn.cursor()
+    cursor.execute(query, params)
     return cursor.lastrowid
 
 def execute_query(conn, query, params=()):
