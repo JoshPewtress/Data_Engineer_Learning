@@ -84,7 +84,7 @@ DATA_ENGINEER_LEARNING/
 
 <a id="block-1-fundamentals--data-processing"></a>
 <details>
-<summary><strong>Block 1: Fundamentals — Data Processing 🟩</strong></summary>
+<summary><strong>🟩 Block 1: Fundamentals — Data Processing</strong></summary>
 <br>
 
 > This block focuses on core Python concepts applied to structured data workflows.
@@ -98,7 +98,7 @@ DATA_ENGINEER_LEARNING/
 > - Building a complete data pipeline
 <br>
 
----
+## 🟩 Modules
 
 <details>
 <summary><strong>🔹 Working with Lists, Loops, and Conditionals</strong></summary>
@@ -110,7 +110,7 @@ DATA_ENGINEER_LEARNING/
 ---
 
 ### Purpose
-Learn how to iterate through a list and apply conditional logic to categorize data.
+Learn how to iterate through a list and apply conditional logic to categorize data
 
 ---
 
@@ -168,12 +168,12 @@ print(odd)    # [47, 83, 29, 5]
 ---
 
 ### Purpose
-Learn how to count occurrences of items using dictionaries.
+Learn how to count occurrences of items using dictionaries
 
 ---
 
 ### What I Built
-A function that counts how many times each name appears in a list.
+A function that counts how many times each name appears in a list
 
 ---
 
@@ -220,7 +220,7 @@ print(counts)    # {'Alice': 3, 'Bob': 2, 'Charlie': 1}
 ---
 
 ### Purpose
-Learn how to create, read, and process structured data using CSV files.
+Learn how to create, read, and process structured data using CSV files
 
 ---
 
@@ -277,7 +277,7 @@ with open(file_name, "r", newline="") as file:
 ---
 
 ### Purpose
-Learn how to filter records, remove unwanted data, and preserve the most useful version of repeated entries.
+Learn how to filter records, remove unwanted data, and preserve the most useful version of repeated entries
 
 ---
 
@@ -331,7 +331,7 @@ def filter_by_score(data):
 ---
 
 ### Purpose
-Learn how to transform cleaned CSV data into a structured JSON format for downstream use.
+Learn how to transform cleaned CSV data into a structured JSON format for downstream use
 
 ---
 
@@ -401,7 +401,7 @@ def transform_to_students(data):
 ---
 
 ### Purpose
-Combine earlier concepts into a single workflow that reads raw CSV data, filters passing scores, aggregates results, and writes a structured JSON summary.
+Combine earlier concepts into a single workflow that reads raw CSV data, filters passing scores, aggregates results, and writes a structured JSON summary
 
 ---
 
@@ -462,7 +462,7 @@ def transform_to_dictionary(data):
 
 <a id="block-2-api-data-ingestion"></a>
 <details>
-<summary><strong>Block 2: API Data Ingestion 🟪</strong></summary>
+<summary><strong>🟪 Block 2: API Data Ingestion</strong></summary>
 <br>
 
 > This block focuses on pulling real-world data from an API, inspecting JSON responses, extracting useful fields, and preparing that data for further transformation and storage.
@@ -473,7 +473,7 @@ def transform_to_dictionary(data):
 > - handles failed requests
 > - writes clean outputs for later processing
 
----
+## 🟪 Modules
 
 <details>
 <summary><strong>🔹 Fetching Data from an API</strong></summary>
@@ -485,7 +485,7 @@ def transform_to_dictionary(data):
 ---
 
 ### Purpose
-Learn how to retrieve data from an external API, inspect the response, and extract useful fields from returned JSON data.
+Learn how to retrieve data from an external API, inspect the response, and extract useful fields from returned JSON data
 
 ---
 
@@ -554,7 +554,7 @@ Weight: 60
 ---
 
 ### Purpose
-Learn how to transform raw API JSON into a clean, reusable Python dictionary.
+Learn how to transform raw API JSON into a clean, reusable Python dictionary
 
 ---
 
@@ -612,7 +612,7 @@ def transform_pokemon_data(pokemon):
 ---
 
 ### Purpose
-Learn how to combine API requests, data transformation, and file output into a simple ingestion workflow.
+Learn how to combine API requests, data transformation, and file output into a simple ingestion workflow
 
 ---
 
@@ -685,7 +685,7 @@ def transform_pokemon_data(pokemon_list):
 ---
 
 ### Purpose
-Learn how to filter a dataset based on a condition and produce a structured summary of the results.
+Learn how to filter a dataset based on a condition and produce a structured summary of the results
 
 ---
 
@@ -763,7 +763,7 @@ def filter_by_base_experience(pokemon, min_exp):
 ---
 
 ### Purpose
-Learn how to make API-driven workflows resilient by handling invalid input, failed requests, and unexpected data without crashing the program.
+Learn how to make API-driven workflows resilient by handling invalid input, failed requests, and unexpected data without crashing the program
 
 ---
 
@@ -831,7 +831,7 @@ Skipping '', blank entry.
 ---
 
 ### Purpose
-Combine API ingestion, validation, transformation, filtering, and file output into a single cohesive workflow.
+Combine API ingestion, validation, transformation, filtering, and file output into a single cohesive workflow
 
 ---
 
@@ -906,7 +906,7 @@ def main():
 
 <a id="block-3-data-storage-and-querying"></a>
 <details>
-<summary><strong>Block 3: Data Storage and Querying 🟦</strong></summary>
+<summary><strong>🟦 Block 3: Data Storage and Querying</strong></summary>
 <br>
 
 > This block progresses from simple storage to structured data access patterns used in real-world applications.  
@@ -918,7 +918,7 @@ def main():
 > - querying data using SQL
 > - integrating SQL with Python workflows
 
----
+## 🟦 Modules
 
 <details>
 <summary><strong>🔹 Storing Data in SQLite</strong></summary>
@@ -930,15 +930,14 @@ def main():
 ---
 
 ### Purpose
-Store previously collected API data in a structured database instead of JSON files.  
-This builds directly on the API ingestion pipeline by introducing a persistent storage layer for collected data.  
-The database file is generated at runtime and is excluded via `.gitignore`. 
+Store previously collected API data in a structured database instead of JSON files  
+This builds directly on the API ingestion pipeline by introducing a persistent storage layer for collected data  
+The database file is generated at runtime and is excluded via `.gitignore`
 
 ---
 
 ### What I Built
 A script that:
-
 - reads Pokémon data from a JSON file
 - creates a SQLite database (`pokemon.db`)
 - defines a table schema for Pokémon data
@@ -1005,7 +1004,7 @@ CREATE TABLE IF NOT EXISTS pokemon (
 ---
 
 ### Purpose
-Retrieve and filter stored data using SQL queries instead of Python loops.
+Retrieve and filter stored data using SQL queries instead of Python loops
 
 ---
 
@@ -1076,13 +1075,12 @@ Name: Bulbasaur | Weight: 69
 ---
 
 ### Purpose
-Design a more scalable schema by separating data into related tables and querying across them using joins.
+Design a more scalable schema by separating data into related tables and querying across them using joins
 
 ---
 
 ### What I Built
 A script that:
-
 - creates two related tables (`pokemon` and `pokemon_experience`)
 - inserts data into both tables using a shared key
 - enforces relationships via a foreign key
@@ -1167,13 +1165,12 @@ Umbreon - 184
 ---
 
 ### Purpose
-Build a complete ETL pipeline that extracts Pokémon data from an external API, transforms it into a structured format, loads it into a normalized SQL database, and supports interactive querying.
+Build a complete ETL pipeline that extracts Pokémon data from an external API, transforms it into a structured format, loads it into a normalized SQL database, and supports interactive querying
 
 ---
 
 ### What I Built
 A full pipeline that:
-
 - extracts Pokémon data from the PokéAPI using user input
 - transforms raw JSON into structured dictionaries
 - loads data into a normalized SQLite schema
@@ -1250,13 +1247,12 @@ Pipeline complete.
 ---
 
 ### Purpose
-Reorganize the interactive API-to-SQL ETL pipeline into separate modules based on clearly defined responsibilities.
+Reorganize the interactive API-to-SQL ETL pipeline into separate modules based on clearly defined responsibilities
 
 ---
 
 ### What I Built
 A modular version of the ETL pipeline that separates:
-
 - configuration management
 - API extraction
 - data transformation
@@ -1283,10 +1279,10 @@ pokemon_type_etl/
 ### Module Responsibilities
 
 #### main.py
-- Controls the overall pipeline flow.
+- Controls the overall pipeline flow
 
 #### config.py
-- Stores shared constants like database path and API base URL.
+- Stores shared constants like database path and API base URL
 
 #### database.py
 - Provides helper functions to execute SQL commands and queries
@@ -1296,13 +1292,13 @@ pokemon_type_etl/
 - Handles table creation, data loading, and querying
 
 #### extract.py
-- Handles user Pokémon input and API requests.
+- Handles user Pokémon input and API requests
 
 #### transform.py
-- Converts raw API JSON into clean dictionaries.
+- Converts raw API JSON into clean dictionaries
 
 #### display.py
-- Handles user-facing output and repeated type search prompts.
+- Handles user-facing output and repeated type search prompts
 
 ---
 
@@ -1327,13 +1323,12 @@ pokemon_type_etl/
 ---
 
 ### Purpose
-Reduce repeated database boilerplate by introducing reusable helper functions for executing SQL commands and queries.
+Reduce repeated database boilerplate by introducing reusable helper functions for executing SQL commands and queries
 
 ---
 
 ### What I Built
 A lightweight database layer that:
-
 - centralizes database connection creation
 - abstracts SQL execution into reusable functions
 - removes the need to pass `cursor` between modules
@@ -1394,7 +1389,7 @@ execute_query(conn, query, params)
 main.py → database.py → SQLite
 ```
 
-Instead of every module interacting directly with SQLite, they now communicate through a shared interface.
+Instead of every module interacting directly with SQLite, they now communicate through a shared interface
 
 </details>
 
@@ -1410,13 +1405,12 @@ Instead of every module interacting directly with SQLite, they now communicate t
 ---
 
 ### Purpose
-Encapsulate all Pokémon-related database operations into a single class to improve organization, readability, and scalability.
+Encapsulate all Pokémon-related database operations into a single class to improve organization, readability, and scalability
 
 ---
 
 ### What I Built
 A `PokemonRepository` class that:
-
 - owns all database operations related to Pokémon data
 - handles table creation and cleanup
 - inserts Pokémon and their associated types
@@ -1471,8 +1465,81 @@ pokemon = repo.get_pokemon_type("dragon")
 main.py → PokemonRepository → database.py → SQLite
 ```
 
-- The repository defines *what* operations exist.
-- The database layer defines *how* they are executed.
+- The repository defines *what* operations exist
+- The database layer defines *how* they are executed
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔹 Cloud-Ready Pipeline Design</strong></summary>
+<br>
+
+### Script
+- [pokemon_type_etl/main.py](./python/data_storage_and_querying/pokemon_type_etl/main.py)
+
+---
+
+### Purpose
+Refactor the ETL pipeline to support both interactive and automated execution, preparing it for cloud-based environments where user input is not available
+
+---
+
+### What I Built
+A configurable pipeline that:
+- supports **interactive mode** for local testing
+- supports **non-interactive mode** for automated execution
+- uses default configuration values when inputs are not provided
+- removes direct dependency on user input for pipeline execution
+- maintains compatibility with the existing modular ETL structure
+
+---
+
+### Key Takeaways
+- Pipelines should not depend on user input to run
+- Default configuration enables automation and reuse
+- Separating interactive vs automated logic improves flexibility
+- This is the first step toward cloud execution and scheduled jobs
+- Functions should return consistent data types for predictable flow
+
+---
+
+### Execution Modes
+
+#### Interactive Mode
+```python
+main(interactive=True)
+```
+
+- Prompts the user for Pokémon names
+- Allows repeated type queries
+- Designed for local exploration and testing
+
+---
+
+#### Non-Interactive Mode
+```python
+main(DEFAULT_POKEMON_INPUT, DEFAULT_TYPE_INPUT)
+```
+
+- Executes once using predefined inputs
+- No prompts or loops
+- Designed for automation and scheduling
+
+---
+
+### Configuration
+
+#### config.py
+```python
+DEFAULT_POKEMON_INPUT = ["pikachu", "charizard", "venusaur", "rayquaza", "nidoran"]
+DEFAULT_TYPE_INPUT = "electric"
+```
+
+- Centralizes default inputs
+- Allows easy modification without changing logic
+- Mimics environment-driven configuration used in production systems
 
 </details>
 
@@ -1503,6 +1570,9 @@ Across these blocks, I practiced:
 - Organizing ETL pipeline code into separate modules by responsibility
 - Abstracting database interactions with a helper layer
 - Applying the repository pattern to organize domain-specific database logic
+- Designing pipelines that can run with or without user interaction
+- Separating configuration from execution logic
+- Preparing local code for cloud-based execution environments
 
 </details>
 
