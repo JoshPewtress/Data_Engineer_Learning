@@ -3,8 +3,14 @@ import requests
 from config import URL_PATH
 
 def get_pokemon_input():
-    user_input = input("Enter Pokémon names separated by commas: ")
-    return [name.strip().lower() for name in user_input.split(',') if name.strip()]
+    while True:
+        user_input = input("Enter Pokémon names separated by commas: ")
+        pokemon_names = [name.strip().lower() for name in user_input.split(",") if name.strip()]
+        
+        if pokemon_names:
+            return pokemon_names
+        
+        print("No valid Pokémon names entered.")
 
 def extract(pokemon_names):
     output = []
@@ -22,5 +28,5 @@ def extract(pokemon_names):
             continue
 
         output.append(response.json())
-
+    
     return output
