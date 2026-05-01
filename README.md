@@ -14,6 +14,7 @@
     - [Block 1: Fundamentals — Data Processing](#block-1-fundamentals--data-processing)
     - [Block 2: API Data Ingestion](#block-2-api-data-ingestion)
     - [Block 3: Data Storage and Querying](#block-3-data-storage-and-querying)
+    - [Block 4: Cloud Foundations & Architecture](#block-4-cloud-foundations--architecture)
 - [Concepts Reinforced](#-concepts-reinforced)
 - [Notes for Future Me](#-notes-for-future-me)
 
@@ -116,12 +117,14 @@ Learn how to iterate through a list and apply conditional logic to categorize da
 
 ### What I Built
 A function that separates a list of numbers into:
-- even numbers
-- odd numbers
+
+- Even numbers
+- Odd numbers
 
 ---
 
 ### Key Takeaways
+
 - Using `%` (modulo) to determine even vs odd
 - Iterating through lists with `for` loops
 - Building new lists based on conditions
@@ -130,6 +133,7 @@ A function that separates a list of numbers into:
 ---
 
 ### Quick Reference
+
 ```python
 def sort_by_even_odd(numbers):
     even_numbers = []
@@ -147,6 +151,7 @@ def sort_by_even_odd(numbers):
 ---
 
 ### Example Usage
+
 ```python
 numbers = [12, 47, 83, 29, 5, 64]
 even, odd = sort_by_even_odd(numbers)
@@ -178,6 +183,7 @@ A function that counts how many times each name appears in a list
 ---
 
 ### Key Takeaways
+
 - Dictionaries are ideal for tracking frequency
 - `.get(key, default)` avoids key errors and simplifies counting
 - Pattern: *check* → *increment* → *store*
@@ -186,6 +192,7 @@ A function that counts how many times each name appears in a list
 ---
 
 ### Quick Reference
+
 ```python
 def count_duplicate_names(names):
     output = {}
@@ -199,6 +206,7 @@ def count_duplicate_names(names):
 ---
 
 ### Example Usage
+
 ```python
 names = ["Alice", "Bob", "Alice", "Charlie", "Bob", "Alice"]
 counts = count_duplicate_names(names)
@@ -226,6 +234,7 @@ Learn how to create, read, and process structured data using CSV files
 
 ### What I Built
 Two scripts:
+
 1. **CSV Writer**
     - Creates a CSV file from structured data
 2. **CSV Reader + Processor**
@@ -236,6 +245,7 @@ Two scripts:
 ---
 
 ### Key Takeaways
+
 - How to write CSV files using `csv.writer`
 - How to read CSV files using `csv.DictReader`
 - CSV data is read as **strings by default**
@@ -245,6 +255,7 @@ Two scripts:
 ---
 
 ### Quick Reference — Writing CSV
+
 ```python
 import csv
 
@@ -256,6 +267,7 @@ with open(file_name, "w", newline="") as file:
 ---
 
 ### Quick Reference — Reading CSV
+
 ```python
 import csv
 
@@ -283,15 +295,17 @@ Learn how to filter records, remove unwanted data, and preserve the most useful 
 
 ### What I Built
 A script that:
-- reads student scores from a CSV file
-- keeps only scores greater than or equal to 80
-- keeps the highest passing score for duplicate student names
-- counts how many failing grades were removed
-- writes the cleaned results to a new CSV file
+
+- Reads student scores from a CSV file
+- Keeps only scores greater than or equal to 80
+- Keeps the highest passing score for duplicate student names
+- Counts how many failing grades were removed
+- Writes the cleaned results to a new CSV file
 
 ---
 
 ### Key Takeaways
+
 - Filtering rows based on conditions
 - Converting CSV string values into integers before comparison
 - Using dictionaries to collapse duplicate records
@@ -301,6 +315,7 @@ A script that:
 ---
 
 ### Quick Reference
+
 ```python
 def filter_by_score(data):
     filtered_scores = {}
@@ -337,23 +352,26 @@ Learn how to transform cleaned CSV data into a structured JSON format for downst
 
 ### What I Built
 A script that:
-- reads cleaned student data from a CSV file
-- skips non-student summary rows
-- converts each student into a dictionary
-- stores the result under a `"students"` key
-- writes the final structure to a JSON file
+
+- Reads cleaned student data from a CSV file
+- Skips non-student summary rows
+- Converts each student into a dictionary
+- Stores the result under a `"students"` key
+- Writes the final structure to a JSON file
 
 ---
 
 ### Key Takeaways
+
 - JSON is useful for storing structured, nested data
 - `json.dump()` writes Python dictionaries and lists to JSON
 - CSV data often needs additional cleanup before transformation
-- upstream design decisions can affect downstream processing
+- Upstream design decisions can affect downstream processing
 
 ---
 
 ### Quick Reference
+
 ```python
 def transform_to_students(data):
     students = []
@@ -373,6 +391,7 @@ def transform_to_students(data):
 ---
 
 ### Example Output
+
 ```json
 {
     "students": [
@@ -407,16 +426,18 @@ Combine earlier concepts into a single workflow that reads raw CSV data, filters
 
 ### What I Built
 A script that:
-- reads student score data from a CSV file
-- filters out scores below a passing threshold
-- counts how many passing records each student has earned
-- calculates total passing records
-- calculates the number of unique passing students
-- writes the final summary to a JSON file
+
+- Reads student score data from a CSV file
+- Filters out scores below a passing threshold
+- Counts how many passing records each student has earned
+- Calculates total passing records
+- Calculates the number of unique passing students
+- Writes the final summary to a JSON file
 
 ---
 
 ### Key Takeaways
+
 - Chaining functions together into a complete workflow
 - Separating reading, filtering, transforming, and writing into distinct steps
 - Using dictionaries to aggregate results
@@ -426,6 +447,7 @@ A script that:
 ---
 
 ### Quick Reference
+
 ```python
 def transform_to_dictionary(data):
     counts = {}
@@ -444,6 +466,7 @@ def transform_to_dictionary(data):
 ---
 
 ### Example Output
+
 ```json
 {
     "counts": {
@@ -491,15 +514,17 @@ Learn how to retrieve data from an external API, inspect the response, and extra
 
 ### What I Built
 A script that:
-- sends a GET request to the Pokémon API
-- retrieves data for a specified Pokémon
-- checks for a successful response
-- converts the response into JSON format
-- extracts and displays selected attributes in a readable format
+
+- Sends a GET request to the Pokémon API
+- Retrieves data for a specified Pokémon
+- Checks for a successful response
+- Converts the response into JSON format
+- Extracts and displays selected attributes in a readable format
 
 ---
 
 ### Key Takeaways
+
 - Using `requests.get()` to call an external API
 - Checking `response.status_code` before using the response
 - Converting API responses into Python dictionaries using `.json()`
@@ -509,6 +534,7 @@ A script that:
 ---
 
 ### Quick Reference
+
 ```python
 import requests
 
@@ -534,6 +560,7 @@ def display_pokemon_info(pokemon):
 ---
 
 ### Example Output
+
 ```text
 Name: Pikachu
 Base Experience: 112
@@ -560,14 +587,16 @@ Learn how to transform raw API JSON into a clean, reusable Python dictionary
 
 ### What I Built
 A script that:
-- retrieves Pokémon data from the API
-- extracts only relevant fields
-- converts raw JSON into a structured dictionary
-- separates API logic from transformation logic
+
+- Retrieves Pokémon data from the API
+- Extracts only relevant fields
+- Converts raw JSON into a structured dictionary
+- Separates API logic from transformation logic
 
 ---
 
 ### Key Takeaways
+
 - Raw API responses should not be used directly, always transform them first
 - Creating a transformation layer makes data reusable
 - Functions should have a single responsibility (fetch vs transform)
@@ -576,6 +605,7 @@ A script that:
 ---
 
 ### Quick Reference
+
 ```python
 def transform_pokemon_data(pokemon):
     return {
@@ -589,6 +619,7 @@ def transform_pokemon_data(pokemon):
 ---
 
 ### Example Output
+
 ```python
 {
     "name": "pikachu",
@@ -618,15 +649,17 @@ Learn how to combine API requests, data transformation, and file output into a s
 
 ### What I Built
 A script that:
-- loops through a list of Pokémon
-- retrieves data for each one using the API
-- transforms each response into a structured format
-- aggregates the results into a structured dataset
-- writes the final dataset to a JSON file
+
+- Loops through a list of Pokémon
+- Retrieves data for each one using the API
+- Transforms each response into a structured format
+- Aggregates the results into a structured dataset
+- Writes the final dataset to a JSON file
 
 ---
 
 ### Key Takeaways
+
 - Looping over multiple API calls to build a dataset
 - Aggregating structured records into a single collection
 - Writing external data to disk using `json.dump()`
@@ -636,6 +669,7 @@ A script that:
 ---
 
 ### Quick Reference
+
 ```python
 def transform_pokemon_data(pokemon_list):
     output = {}
@@ -656,6 +690,7 @@ def transform_pokemon_data(pokemon_list):
 ---
 
 ### Example Output
+
 ```python
 {
     "Pikachu": {
@@ -691,15 +726,17 @@ Learn how to filter a dataset based on a condition and produce a structured summ
 
 ### What I Built
 A script that:
-- reads Pokémon data from a JSON file
-- filters Pokémon based on base experience
-- extracts relevant fields into a clean structure
-- builds a list of filtered records
-- returns both the filtered dataset and a count of matching entries
+
+- Reads Pokémon data from a JSON file
+- Filters Pokémon based on base experience
+- Extracts relevant fields into a clean structure
+- Builds a list of filtered records
+- Returns both the filtered dataset and a count of matching entries
 
 ---
 
 ### Key Takeaways
+
 - Filtering structured data using conditional logic
 - Iterating through nested dictionaries (`key`, `value`)
 - Converting dictionary-based data into a list of records
@@ -709,6 +746,7 @@ A script that:
 ---
 
 ### Quick Reference
+
 ```python
 def filter_by_base_experience(pokemon, min_exp):
     filtered = []
@@ -735,6 +773,7 @@ def filter_by_base_experience(pokemon, min_exp):
 ---
 
 ### Example Output
+
 ```python
 {
     "high_experience": [
@@ -769,15 +808,17 @@ Learn how to make API-driven workflows resilient by handling invalid input, fail
 
 ### What I Built
 A script that:
-- normalizes user input before making API requests
-- skips blank or invalid Pokémon inputs
-- handles failed API responses gracefully
-- continues processing valid records without interruption
-- extracts selected fields into a structured format
+
+- Normalizes user input before making API requests
+- Skips blank or invalid Pokémon inputs
+- Handles failed API responses gracefully
+- Continues processing valid records without interruption
+- Extracts selected fields into a structured format
 
 ---
 
 ### Key Takeaways
+
 - Always normalize input early (`.strip()` and `.lower()`)
 - Never assume external data is valid
 - Use conditional checks to prevent runtime errors
@@ -787,6 +828,7 @@ A script that:
 ---
 
 ### Quick Reference
+
 ```python
 def get_pokemon_data(name):
     name = name.strip().lower()
@@ -808,6 +850,7 @@ def get_pokemon_data(name):
 ---
 
 ### Example Output
+
 ```python
 Skipping 'invalidmon', no record was found.
 Skipping '', blank entry.
@@ -837,19 +880,21 @@ Combine API ingestion, validation, transformation, filtering, and file output in
 
 ### What I Built
 A complete pipeline that:
-- accepts user input for Pokémon names
-- normalizes and validates input
-- retrieves data from the Pokémon API
-- skips invalid or blank entries
-- transforms API responses into structured records
-- saves the raw dataset to a JSON file
-- filters Pokémon based on base experience
-- builds a structured summary of results
-- writes the final summary to a separate JSON file
+
+- Accepts user input for Pokémon names
+- Normalizes and validates input
+- Retrieves data from the Pokémon API
+- Skips invalid or blank entries
+- Transforms API responses into structured records
+- Saves the raw dataset to a JSON file
+- Filters Pokémon based on base experience
+- Builds a structured summary of results
+- Writes the final summary to a separate JSON file
 
 ---
 
 ### Key Takeaways
+
 - Combining multiple functions into a cohesive data workflow
 - Separating raw data from processed outputs
 - Reusing helper functions to maintain DRY code
@@ -859,6 +904,7 @@ A complete pipeline that:
 ---
 
 ### Quick Reference
+
 ```python
 def main():
     pokemon_input = get_user_input()
@@ -875,6 +921,7 @@ def main():
 ---
 
 ### Example Output
+
 ```python
 {
     "high_experience": [
@@ -912,11 +959,11 @@ def main():
 > This block progresses from simple storage to structured data access patterns used in real-world applications.  
 >
 > It focuses on:
-> - storing structured data in a database
-> - defining table schemas
-> - inserting and managing records
-> - querying data using SQL
-> - integrating SQL with Python workflows
+> - Storing structured data in a database
+> - Defining table schemas
+> - Inserting and managing records
+> - Querying data using SQL
+> - Integrating SQL with Python workflows
 
 ## 🟦 Modules
 
@@ -938,15 +985,17 @@ The database file is generated at runtime and is excluded via `.gitignore`
 
 ### What I Built
 A script that:
-- reads Pokémon data from a JSON file
-- creates a SQLite database (`pokemon.db`)
-- defines a table schema for Pokémon data
-- inserts records into the database
-- queries stored data and prints results
+
+- Reads Pokémon data from a JSON file
+- Creates a SQLite database (`pokemon.db`)
+- Defines a table schema for Pokémon data
+- Inserts records into the database
+- Queries stored data and prints results
 
 ---
 
 ### Key Takeaways
+
 - Databases store data persistently beyond script execution
 - SQL tables define structured schemas for data
 - Python can execute SQL commands using `sqlite3`
@@ -957,6 +1006,7 @@ A script that:
 ---
 
 ### Quick Reference
+
 ```python
 conn = sqlite3.connect("data/pokemon.db")
 cursor = conn.cursor()
@@ -975,6 +1025,7 @@ CREATE TABLE IF NOT EXISTS pokemon (
 ---
 
 ### Console Output (Script Preview)
+
 ```text
 (1, 'lugia', 52, 2160, 306)
 (2, 'onix', 88, 2100, 77)
@@ -983,6 +1034,7 @@ CREATE TABLE IF NOT EXISTS pokemon (
 ---
 
 ### Database View (SQLite)
+
 | ID | Name | Height | Weight | Base Experience |
 | :--- | :--- | :--- | :--- | :--- |
 | 1 | lugia | 52 | 2160 | 306 |
@@ -1010,14 +1062,16 @@ Retrieve and filter stored data using SQL queries instead of Python loops
 
 ### What I Built
 A script that:  
-- connects to the existing SQLite database
-- queries Pokémon based on specific conditions
-- sorts and limits results using SQL
-- formats and displays the results in a readable way
+
+- Connects to the existing SQLite database
+- Queries Pokémon based on specific conditions
+- Sorts and limits results using SQL
+- Formats and displays the results in a readable way
 
 ---
 
 ### Key Takeaways
+
 - SQL can handle filtering, sorting, and limiting data directly
 - Python should orchestrate queries, not replace them
 - Using `sqlite3.Row` allows access to columns by name instead of index
@@ -1028,7 +1082,8 @@ A script that:
 
 ### Quick Reference
 
-### High Experience Pokémon
+#### High Experience Pokémon
+
 ```sql
 SELECT id, name, height, weight, base_experience
 FROM pokemon
@@ -1039,7 +1094,8 @@ LIMIT 3
 
 ---
 
-### Lightweight Pokémon
+#### Lightweight Pokémon
+
 ```sql
 SELECT id, name, height, weight, base_experience
 FROM pokemon
@@ -1050,6 +1106,7 @@ ORDER BY weight ASC
 ---
 
 ### Console Output (Script Preview)
+
 ```text
 Top Pokémon by Base Experience:
 Name: Lugia | Base Experience: 306
@@ -1081,15 +1138,17 @@ Design a more scalable schema by separating data into related tables and queryin
 
 ### What I Built
 A script that:
-- creates two related tables (`pokemon` and `pokemon_experience`)
-- inserts data into both tables using a shared key
-- enforces relationships via a foreign key
-- queries across tables using a JOIN
-- formats results for display
+
+- Creates two related tables (`pokemon` and `pokemon_experience`)
+- Inserts data into both tables using a shared key
+- Enforces relationships via a foreign key
+- Queries across tables using a JOIN
+- Formats results for display
 
 ---
 
 ### Key Takeaways
+
 - Data should be organized by responsibility, not convenience
 - Relationships between tables are handled with foreign keys
 - `JOIN` allows combining data across tables
@@ -1098,13 +1157,18 @@ A script that:
 ---
 
 ### Schema Design
+
 #### pokemon
+
 - id *(PK)*
 - name *(UNIQUE)*
 - height
 - weight
 
+---
+
 #### pokemon_experience
+
 - id *(PK)*
 - pokemon_id *(FK → pokemon.id)*
 - base_experience
@@ -1112,6 +1176,7 @@ A script that:
 ---
 
 ### Why This Matters
+
 - Avoids stuffing all data into one table
 - Enables scalable design as new attributes are added
 - Introduces **foreign keys** and **relationships**
@@ -1120,6 +1185,7 @@ A script that:
 ---
 
 ### Quick Reference — Insert + Link
+
 ```sql
 INSERT INTO pokemon (name, height, weight) VALUES (?, ?, ?);
 
@@ -1132,6 +1198,7 @@ INSERT INTO pokemon_experience (pokemon_id, base_experience) VALUES (?, ?);
 ---
 
 ### Quick Reference — JOIN Query
+
 ```sql
 SELECT p.name, pe.base_experience
 FROM pokemon p
@@ -1144,6 +1211,7 @@ LIMIT 3;
 ---
 
 ### Console Output (Script Preview)
+
 ```text
 Top Pokémon by Base Experience:
 Lugia - 306
@@ -1171,16 +1239,18 @@ Build a complete ETL pipeline that extracts Pokémon data from an external API, 
 
 ### What I Built
 A full pipeline that:
-- extracts Pokémon data from the PokéAPI using user input
-- transforms raw JSON into structured dictionaries
-- loads data into a normalized SQLite schema
-- models one-to-many relationships (Pokémon → types)
-- allows users to query Pokémon by type
-- supports repeated interactive queries in a CLI loop
+
+- Extracts Pokémon data from the PokéAPI using user input
+- Transforms raw JSON into structured dictionaries
+- Loads data into a normalized SQLite schema
+- Models one-to-many relationships (Pokémon → types)
+- Allows users to query Pokémon by type
+- Supports repeated interactive queries in a CLI loop
 
 ---
 
 ### Key Takeaways
+
 - ETL pipelines separate data flow into clear stages: Extract → Transform → Load
 - External APIs act as real-world data sources for ingestion
 - Normalized schemas improve scalability and flexibility
@@ -1190,6 +1260,7 @@ A full pipeline that:
 ---
 
 ### Schema Design
+
 #### pokemon
 - id *(PK)*
 - name *(UNIQUE)*
@@ -1199,6 +1270,7 @@ A full pipeline that:
 ---
 
 #### pokemon_types
+
 - id *(PK)*
 - pokemon_id *(FK → pokemon.id)*
 - pokemon_type
@@ -1206,6 +1278,7 @@ A full pipeline that:
 ---
 
 ### Quick Reference — Query by Type
+
 ```sql
 SELECT p.name, pt.pokemon_type
 FROM pokemon p
@@ -1217,6 +1290,7 @@ ORDER BY p.name ASC
 ---
 
 ### Example Output
+
 ```text
 Available Pokémon types:
 - dragon
@@ -1253,16 +1327,18 @@ Reorganize the interactive API-to-SQL ETL pipeline into separate modules based o
 
 ### What I Built
 A modular version of the ETL pipeline that separates:
-- configuration management
+
+- Configuration management
 - API extraction
-- data transformation
-- centralized database access through a repository
-- display and user input logic
-- pipeline orchestration
+- Data transformation
+- Centralized database access through a repository
+- Display and user input logic
+- Pipeline orchestration
 
 ---
 
 ### Project Structure
+
 ```text
 pokemon_type_etl/
 ├── main.py
@@ -1279,30 +1355,38 @@ pokemon_type_etl/
 ### Module Responsibilities
 
 #### main.py
+
 - Controls the overall pipeline flow
 
 #### config.py
+
 - Stores shared constants like database path and API base URL
 
 #### database.py
+
 - Provides helper functions to execute SQL commands and queries
 
 #### pokemon_repository.py
+
 - Owns all database operations for Pokémon data
 - Handles table creation, data loading, and querying
 
 #### extract.py
+
 - Handles user Pokémon input and API requests
 
 #### transform.py
+
 - Converts raw API JSON into clean dictionaries
 
 #### display.py
+
 - Handles user-facing output and repeated type search prompts
 
 ---
 
 ### Key Takeaways
+
 - Modular files make larger projects easier to navigate
 - Each module should have a clear responsibility
 - `main.py` should orchestrate the pipeline, not hold all logic
@@ -1329,14 +1413,16 @@ Reduce repeated database boilerplate by introducing reusable helper functions fo
 
 ### What I Built
 A lightweight database layer that:
-- centralizes database connection creation
-- abstracts SQL execution into reusable functions
-- removes the need to pass `cursor` between modules
-- standardizes how database queries and commands are executed
+
+- Centralizes database connection creation
+- Abstracts SQL execution into reusable functions
+- Removes the need to pass `cursor` between modules
+- Standardizes how database queries and commands are executed
 
 ---
 
 ### Key Takeaways
+
 - Repeated patterns in code are signals for abstraction
 - A data access layer separates database logic from application logic
 - Centralizing SQL execution improves maintainability
@@ -1367,6 +1453,7 @@ execute_query
 ### Before vs After
 
 #### Before (cursor everywhere)
+
 ```sql
 cursor.execute(...)
 cursor.fetchall()
@@ -1376,6 +1463,7 @@ cursor.lastrowid
 ---
 
 #### After (helper layer)
+
 ```python
 execute_command(conn, query, params)
 execute_query(conn, query, params)
@@ -1411,16 +1499,18 @@ Encapsulate all Pokémon-related database operations into a single class to impr
 
 ### What I Built
 A `PokemonRepository` class that:
-- owns all database operations related to Pokémon data
-- handles table creation and cleanup
-- inserts Pokémon and their associated types
-- retrieves available Pokémon types
-- queries Pokémon by type
-- removes the need for separate load/query modules
+
+- Owns all database operations related to Pokémon data
+- Handles table creation and cleanup
+- Inserts Pokémon and their associated types
+- Retrieves available Pokémon types
+- Queries Pokémon by type
+- Removes the need for separate load/query modules
 
 ---
 
 ### Key Takeaways
+
 - A repository groups database logic by domain instead of operation
 - Classes can encapsulate both data and behavior
 - This pattern aligns closely with CRUD design (Create, Read, Update, Delete)
@@ -1432,12 +1522,14 @@ A `PokemonRepository` class that:
 ### Responsibilities Moved
 
 #### Before:
+
 ```text
 load.py → inserts
 query.py → reads
 ```
 
 #### After:
+
 ```text
 PokemonRepository → owns all Pokémon database behavior
 ```
@@ -1445,6 +1537,7 @@ PokemonRepository → owns all Pokémon database behavior
 ---
 
 ### Example Usage
+
 ```python
 conn = create_connection()
 repo = PokemonRepository(conn)
@@ -1461,6 +1554,7 @@ pokemon = repo.get_pokemon_type("dragon")
 ---
 
 ### Architecture Shift
+
 ```text
 main.py → PokemonRepository → database.py → SQLite
 ```
@@ -1471,6 +1565,28 @@ main.py → PokemonRepository → database.py → SQLite
 </details>
 
 ---
+
+</details>
+
+<a id="block-4-cloud-foundations--architecture"></a>
+<details>
+<summary><strong>🔴 Block 4: Cloud Foundations & Architecture</strong></summary>
+<br>
+
+> This block marks the transition from local data pipelines to cloud-based system design.
+>
+> It focuses on:
+> - Preparing pipelines for automated execution
+> - Understanding how local systems translate to cloud architecture
+> - Designing scalable, production-oriented data workflows
+>
+> The goal is to move from:
+> - Running scripts locally
+>
+> to:
+> - Designing systems that run independently in the cloud
+
+## 🔴 Modules
 
 <details>
 <summary><strong>🔹 Cloud-Ready Pipeline Design</strong></summary>
@@ -1486,17 +1602,19 @@ Refactor the ETL pipeline to support both interactive and automated execution, p
 
 ---
 
-### What I Built
+### What I Designed
 A configurable pipeline that:
-- supports **interactive mode** for local testing
-- supports **non-interactive mode** for automated execution
-- uses default configuration values when inputs are not provided
-- removes direct dependency on user input for pipeline execution
-- maintains compatibility with the existing modular ETL structure
+
+- Supports **interactive mode** for local testing
+- Supports **non-interactive mode** for automated execution
+- Uses default configuration values when inputs are not provided
+- Removes direct dependency on user input for pipeline execution
+- Maintains compatibility with the existing modular ETL structure
 
 ---
 
 ### Key Takeaways
+
 - Pipelines should not depend on user input to run
 - Default configuration enables automation and reuse
 - Separating interactive vs automated logic improves flexibility
@@ -1508,6 +1626,7 @@ A configurable pipeline that:
 ### Execution Modes
 
 #### Interactive Mode
+
 ```python
 main(interactive=True)
 ```
@@ -1519,6 +1638,7 @@ main(interactive=True)
 ---
 
 #### Non-Interactive Mode
+
 ```python
 main(DEFAULT_POKEMON_INPUT, DEFAULT_TYPE_INPUT)
 ```
@@ -1532,6 +1652,7 @@ main(DEFAULT_POKEMON_INPUT, DEFAULT_TYPE_INPUT)
 ### Configuration
 
 #### config.py
+
 ```python
 DEFAULT_POKEMON_INPUT = ["pikachu", "charizard", "venusaur", "rayquaza", "nidoran"]
 DEFAULT_TYPE_INPUT = "electric"
@@ -1540,6 +1661,86 @@ DEFAULT_TYPE_INPUT = "electric"
 - Centralizes default inputs
 - Allows easy modification without changing logic
 - Mimics environment-driven configuration used in production systems
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔹 Cloud Architecture Mapping</strong></summary>
+<br>
+
+### Purpose
+Translate the existing local ETL pipeline into a cloud-based architecture using Google Cloud services
+
+---
+
+### What I Designed
+This design represents how a locally executed ETL pipeline can be restructured into independent cloud services that handle storage, execution, and querying separately.  
+This mirrors how production systems separate compute, storage, and querying into independent services.
+
+```text
+[Cloud Scheduler]
+        ↓
+[Cloud Run Job]
+        ↓
+[PokéAPI]
+        ↓
+[Cloud Storage] (raw JSON storage)
+        ↓
+[BigQuery] (structured, queryable tables)
+```
+
+---
+
+### Component Mapping
+
+| Local component | Cloud Equivalent | Responsibility |
+| :--- | :--- | :--- |
+| JSON files | Cloud Storage | raw and processed data storage |
+| SQLite database | BigQuery | structured data storage and querying |
+| Python scripts | Cloud Run Job | ETL pipeline execution |
+| Manual execution | Cloud Scheduler | automated pipeline triggering |
+
+---
+
+### Pipeline Flow
+
+```text
+API → ETL (Cloud Run) → Cloud Storage (raw) → BigQuery (structured) → Query → Output (Cloud Storage)
+```
+
+---
+
+### How It Works
+
+- `Cloud Scheduler` triggers the pipeline at scheduled intervals  
+- `Cloud Run` executes the Python-based ETL pipeline  
+- Data is extracted from the API and transformed into structured JSON  
+- Raw and processed data is stored in `Cloud Storage`  
+- Structured data is loaded into `BigQuery` tables  
+- SQL queries are executed against `BigQuery` to retrieve specific datasets  
+- Query results can be written back to `Cloud Storage` as output files  
+
+---
+
+### Why This Architecture
+
+- Separates raw data from structured data  
+- Allows data to be reprocessed without re-calling the API  
+- Scales better than a single local system  
+- Removes dependency on manual execution  
+- Reflects how real-world data pipelines are designed  
+
+---
+
+### Key Takeaways
+
+- Cloud systems separate storage, compute, and querying responsibilities  
+- Pipelines need to run without user interaction  
+- Raw data should be preserved before transformation  
+- ETL logic stays consistent even when infrastructure changes  
+- System design matters just as much as code  
 
 </details>
 
