@@ -38,6 +38,3 @@ def is_stop_requested():
             return True
         else:
             print("Please enter 'Y' or 'N'.")
-
-def log(message):
-    print(f"[PIPELINE] {message}")

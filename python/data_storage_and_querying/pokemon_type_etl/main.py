@@ -1,10 +1,17 @@
+import logging
+
 from config import POKEMON_INPUT, TYPE_INPUT
 from database import create_connection
 from pokemon_repository import PokemonRepository
 from extract import extract, get_pokemon_input
 from transform import transform
-from display import display_available_types, display_pokemon, get_type_input, is_stop_requested, log
+from display import display_available_types, display_pokemon, get_type_input, is_stop_requested
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(levelname)s: %(message)s"
+)
+logger = logging.getLogger(__name__)
 
 def main(pokemon_input=None, type_input=None, interactive=False):
     conn = create_connection()
@@ -25,18 +32,18 @@ def main(pokemon_input=None, type_input=None, interactive=False):
         if isinstance(pokemon_input, str):
             pokemon_input = [p.strip() for p in pokemon_input.split(",") if p.strip()]
 
-    log("Extracting data...")
+    logger.info("Extracting data...")
     raw_data = extract(pokemon_input)
 
     if not raw_data:
-        log("Pipeline stopped: no valid Pokémon data.")
+        logger.error("Pipeline stopped: no valid Pokémon data.")
         conn.close()
         return
 
-    log("Transforming data...")
+    logger.info("Transforming data...")
     transformed = transform(raw_data)
 
-    log("Loading data...")
+    logger.info("Loading data...")
     repo.load(transformed)
 
     pokemon_types = [row["pokemon_type"] for row in repo.get_available_types()]
@@ -53,9 +60,9 @@ def main(pokemon_input=None, type_input=None, interactive=False):
         display_pokemon(repo.get_pokemon_type(type_input))
 
     conn.commit()
-    log("Pipeline complete.")
+    logger.info("Pipeline complete.")
     conn.close()
 
 
 if __name__ == "__main__":
-    main("lugia, rayquaza", "dragon", True)
+    main(POKEMON_INPUT, TYPE_INPUT, False)
