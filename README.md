@@ -1654,8 +1654,17 @@ main(DEFAULT_POKEMON_INPUT, DEFAULT_TYPE_INPUT)
 #### config.py
 
 ```python
-DEFAULT_POKEMON_INPUT = ["pikachu", "charizard", "venusaur", "rayquaza", "nidoran"]
-DEFAULT_TYPE_INPUT = "electric"
+import os
+
+POKEMON_INPUT = os.getenv(
+    "POKEMON_INPUT",
+    "pikachu,charizard,venusaur"
+)
+
+TYPE_INPUT = os.getenv(
+    "TYPE_INPUT",
+    "electric"
+)
 ```
 
 - Centralizes default inputs
@@ -1676,8 +1685,7 @@ Translate the existing local ETL pipeline into a cloud-based architecture using 
 ---
 
 ### What I Designed
-This design represents how a locally executed ETL pipeline can be restructured into independent cloud services that handle storage, execution, and querying separately.  
-This mirrors how production systems separate compute, storage, and querying into independent services.
+This design shows how a local ETL pipeline can be restructured into independent cloud services that separate compute, storage, and querying responsibilities.
 
 ```text
 [Cloud Scheduler]
@@ -1716,7 +1724,7 @@ API → ETL (Cloud Run) → Cloud Storage (raw) → BigQuery (structured) → Qu
 
 - `Cloud Scheduler` triggers the pipeline at scheduled intervals  
 - `Cloud Run` executes the Python-based ETL pipeline  
-- Data is extracted from the API and transformed into structured JSON  
+- Data is extracted from the API and transformed into structured JSON data  
 - Raw and processed data is stored in `Cloud Storage`  
 - Structured data is loaded into `BigQuery` tables  
 - SQL queries are executed against `BigQuery` to retrieve specific datasets  
@@ -1741,6 +1749,71 @@ API → ETL (Cloud Run) → Cloud Storage (raw) → BigQuery (structured) → Qu
 - Raw data should be preserved before transformation  
 - ETL logic stays consistent even when infrastructure changes  
 - System design matters just as much as code  
+
+</details>
+
+---
+
+<details>
+<summary><strong>🔹 Environment Configuration (Cloud-Ready Inputs)</strong></summary>
+<br>
+
+### Purpose
+Remove hardcoded values from the ETL pipeline and replace them with environment-driven configuration, allowing the pipeline to run dynamically across local and cloud environments.
+
+---
+
+### What Changed
+
+- Replaced hardcoded input values with environment variables using `os.getenv()`
+- Introduced fallback defaults to preserve local usability
+- Converted string-based environment input into structured Python data
+- Maintained compatibility with both interactive and non-interactive execution modes
+
+---
+
+### Configuration Approach
+
+```python
+import os
+
+POKEMON_INPUT = os.getenv(
+    "POKEMON_INPUT",
+    "pikachu,charizard,venusaur"
+)
+
+TYPE_INPUT = os.getenv(
+    "TYPE_INPUT",
+    "electric"
+)
+```
+
+- Environment variables provide runtime configuration
+- Fallback values ensure the pipeline still runs locally
+- Configuration is now external to the application logic
+
+---
+
+### Input Handling
+Environment variables are received as strings and must be converted into structured input before processing.
+
+```python
+if isinstance(pokemon_input, str):
+    pokemon_input = [p.strip() for p in pokemon_input.split(",") if p.strip()]
+```
+
+- Environment variables are always strings
+- Input is normalized into a list before processing
+- Prevents invalid or empty values from entering the pipeline
+
+---
+
+### Why This Matters
+
+- Configuration should not require code changes
+- The same pipeline can run in different environments with different inputs
+- This mirrors how cloud platforms pass runtime configuration
+- It enables deployment without modifying application logic
 
 </details>
 
@@ -1774,6 +1847,7 @@ Across these blocks, I practiced:
 - Designing pipelines that can run with or without user interaction
 - Separating configuration from execution logic
 - Preparing local code for cloud-based execution environments
+- Designing pipelines that use enironment-driven configuration
 
 </details>
 
