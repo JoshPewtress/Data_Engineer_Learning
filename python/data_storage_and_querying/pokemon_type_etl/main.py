@@ -1,4 +1,4 @@
-from config import DEFAULT_POKEMON_INPUT, DEFAULT_TYPE_INPUT
+from config import POKEMON_INPUT, TYPE_INPUT
 from database import create_connection
 from pokemon_repository import PokemonRepository
 from extract import extract, get_pokemon_input
@@ -14,13 +14,16 @@ def main(pokemon_input=None, type_input=None, interactive=False):
     repo.clear_tables()
 
     if not pokemon_input:
-        pokemon_input = DEFAULT_POKEMON_INPUT
+        pokemon_input = POKEMON_INPUT
 
     if not type_input:
-        type_input = DEFAULT_TYPE_INPUT
+        type_input = TYPE_INPUT
 
     if interactive:
         pokemon_input = get_pokemon_input()
+    else:
+        if isinstance(pokemon_input, str):
+            pokemon_input = [p.strip() for p in pokemon_input.split(",") if p.strip()]
 
     log("Extracting data...")
     raw_data = extract(pokemon_input)
@@ -55,4 +58,4 @@ def main(pokemon_input=None, type_input=None, interactive=False):
 
 
 if __name__ == "__main__":
-    main(DEFAULT_POKEMON_INPUT, DEFAULT_TYPE_INPUT)
+    main("lugia, rayquaza", "dragon", True)

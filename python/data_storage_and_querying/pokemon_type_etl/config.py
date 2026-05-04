@@ -1,4 +1,6 @@
+import os
+
 DB_PATH = "data/database/pokemon.db"
 URL_PATH = "https://pokeapi.co/api/v2/"
-DEFAULT_POKEMON_INPUT = ["pikachu", "charizard", "venusaur", "rayquaza", "nidoran"]
-DEFAULT_TYPE_INPUT = "electric"
+POKEMON_INPUT = os.getenv("POKEMON_INPUT", "pikachu,charizard,venusaur")
+TYPE_INPUT = os.getenv("TYPE_INPUT", "electric")
