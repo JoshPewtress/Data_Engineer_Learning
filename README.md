@@ -1755,20 +1755,27 @@ API → ETL (Cloud Run) → Cloud Storage (raw) → BigQuery (structured) → Qu
 ---
 
 <details>
-<summary><strong>🔹 Environment Configuration (Cloud-Ready Inputs)</strong></summary>
+<summary><strong>🔹 Production Readiness: Configuration, Logging, and Resilience</strong></summary>
 <br>
 
 ### Purpose
-Remove hardcoded values from the ETL pipeline and replace them with environment-driven configuration, allowing the pipeline to run dynamically across local and cloud environments.
+Improve the ETL pipeline so it can run more reliably in automated and cloud-like environments.
+
+This module combines configuration, logging, validation, and retry handling into one production-readiness layer.
 
 ---
 
 ### What Changed
 
-- Replaced hardcoded input values with environment variables using `os.getenv()`
-- Introduced fallback defaults to preserve local usability
+- Replaced hardcoded pipeline inputs with environment variables
+- Added fallback defaults for local execution
 - Converted string-based environment input into structured Python data
-- Maintained compatibility with both interactive and non-interactive execution modes
+- Replaced custom logging with Python's `logging` module
+- Added retry handling for failed API requests
+- Added timeout protection for API calls
+- Validated required Pokémon fields before transformation
+- Skipped records with missing or malformed type data
+- Stopped the pipeline gracefully when no valid data remains
 
 ---
 
@@ -1779,7 +1786,7 @@ import os
 
 POKEMON_INPUT = os.getenv(
     "POKEMON_INPUT",
-    "pikachu,charizard,venusaur"
+    "pikachu,charizard,notapokemon,venusaur"
 )
 
 TYPE_INPUT = os.getenv(
@@ -1789,31 +1796,74 @@ TYPE_INPUT = os.getenv(
 ```
 
 - Environment variables provide runtime configuration
-- Fallback values ensure the pipeline still runs locally
+- Fallback values keep the pipeline usable locally
 - Configuration is now external to the application logic
 
 ---
 
-### Input Handling
-Environment variables are received as strings and must be converted into structured input before processing.
+### Logging Approach
 
 ```python
-if isinstance(pokemon_input, str):
-    pokemon_input = [p.strip() for p in pokemon_input.split(",") if p.strip()]
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(levelname)s: %(message)s"
+)
+
+logger = logging.getLogger(__name__)
 ```
 
-- Environment variables are always strings
-- Input is normalized into a list before processing
-- Prevents invalid or empty values from entering the pipeline
+- `INFO` logs track normal pipeline progress
+- `WARNING` logs identify skipped or recoverable issues
+- `ERROR` logs identify stopping conditions
+- System logging is separated from user-facing display output
+
+---
+
+### Resilience Approach
+
+```python
+response = requests.get(url, timeout=10)
+```
+
+```python
+if not transformed:
+    logger.error("Pipeline stopped: no valid transformed data.")
+    conn.close()
+    return
+```
+
+- API requests are retried before records are skipped
+- Network failures and invalid responses are logged
+- Bad records are skipped instead of crashing the pipeline
+- The pipeline exits safely when no usable data remains
+
+---
+
+### Validation Approach
+
+```python
+REQUIRED_FIELDS = ["name", "height", "weight", "types"]
+```
+
+```python
+if "type" not in typ or "name" not in typ["type"]:
+    logger.warning(f"Skipping malformed type entry for {row['name']}")
+    continue
+```
+
+- Required fields are checked before transformation
+- Nested type data is validated before use
+- Pokémon without valid type data are excluded from loading
 
 ---
 
 ### Why This Matters
 
-- Configuration should not require code changes
-- The same pipeline can run in different environments with different inputs
-- This mirrors how cloud platforms pass runtime configuration
-- It enables deployment without modifying application logic
+- Cloud pipelines need to run without manual correction
+- Configuration should change without modifying code
+- Logs provide visibility when the pipeline runs unattended
+- Validation protects downstream storage and querying
+- Resilience allows the pipeline to continue when individual records fail
 
 </details>
 
