@@ -42,6 +42,10 @@ def main(pokemon_input=None, type_input=None, interactive=False):
 
     logger.info("Transforming data...")
     transformed = transform(raw_data)
+    if not transformed:
+        logger.error("Pipeline stopped: no valid transformed data.")
+        conn.close()
+        return
 
     logger.info("Loading data...")
     repo.load(transformed)
